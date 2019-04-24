@@ -1,0 +1,7 @@
+author = direwolf420
+version = 0.1
+displayName = PetRenamer
+hideCode = true
+hideResources = false
+includeSource = false
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
