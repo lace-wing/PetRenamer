@@ -1,4 +1,4 @@
-# ItemMagnetPlus
+# PetRenamer
 
 ![Icon](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/icon.png)
 
