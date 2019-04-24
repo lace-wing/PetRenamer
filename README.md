@@ -1,68 +1,30 @@
 # ItemMagnetPlus
 
-![Banner](https://raw.githubusercontent.com/direwolf420/ItemMagnetPlus/master/banner.png)
+![Icon](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/icon.png)
 
-Terraria Forum link: https://forums.terraria.org/index.php?threads/itemmagnetplus-customizable-item-magnet.74425/
+Terraria Forum link: tbd
 
-ItemMagnetPlus adds a single item called "Item Magnet" that does the obvious thing: Sucking in items around you so you don't have to run around and collect them yourself.
-
-Adds:
-Item Magnet (and corresponding buff) that
-* can be crafted with simple materials (Iron/Lead)
-* works while in your inventory (doesn't waste an accessory slot)
-* can be toggled on and off
-* has adjustable range and item succ speed
-* has increased stats after killing bosses
-* customizable via config (\Documents\My Games\Terraria\ModLoader\Mod Configs) to fit your playstyle
+Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
 How to use:
-* Left click cycles through its ranges
-* Right click shows current range (you can always check the stats on the buff tooltip)
-* This right click functionality changes to "turn off" when "buff" flag in the config is set to 0
-* Killing bosses improves its stats
-* If you want it to either be off or on, there is a config entry called "scale", set it to 0
-* If you plan on using this in multiplayer, make sure that everyone has the same config
+* Either open your chat (default: Enter) while you have a summon item held in your mouse (left click on the item in your inventory), or hold an item in your mouse and then open your chat
+* The chat will then say "/renamepet ", the following words you type in will be accepted as the new pet name
+* It will also save the original owner of the pet if it didn't have a name before, meaning that other players can't change it
+* To remove the name, simply type "del" or "delete" as the name 
 
-Progression: (default config)
+Notes:
+* Pet names will be saved on the item, even when disabling the mod and enabling it again
+* Multiplayer compatible
+* Compatible with most modded pets if they do it the vanilla way:
+    * If a summon item happens to summon multiple different pets at once, only one of them will be named
+    * If the pet name hover text only shows up in a specific position, contact the mod dev so he can fix the pets hitbox
 
- Starts with:
+Example:
 
- Range = 10 (Blocks in each direction)
+`/renamepet Cute Bunny` >> sets or renames the name of the pet item you are holding to "Cute Bunny"
 
- Velocity = 8
-
- Acceleration = 8
-
-
-Ends with: (killing Moonlord)
-
- Range = 120 (one and a half screens)
-
- Velocity = 32
-
- Acceleration = 32
-
-
- About the config:
-* Buff decides if it gives you a corresponding buff icon to show the status of the magnet
-* Filter decides what do ignore when using the magnet (only hearts, mana stars and coins supported for now)
-* Range starts from 10, but can be as big as you want
-* If you increase Vel or Acc too much from those recommended above, items might get "stuck" on you until you deactivate it again
-* Beware of lag when increasing these values, especially range
-* If the difference between velocity and acceleration is too big, items will go in circles around you or get stuck until you deactivate it
-* If you change the version number, your config might get reset, so don't touch it 
-
+`/renamepet del` >> deletes the current name
 
  Changelog:
-
- v0.1.4.1 + 2 + 3: filter hotfix, fix stuck range when using magnet inside inventory
- 
- v0.1.4: Added blacklist "filter" to be able to filter hearts, mana stars and coins (for now)
-
- v0.1.3: Added config flag "buff" to be able to decide if a buff should be applied while the magnet is active
-
- v0.1.2: Added Buff- and Tooltip to show range, updated icons (Thanks to Harblesnargits!)
-
- v0.1.1: Fixed incompatibility with Even More Modifiers, changed acceleration values (updating will set it back to default)
 
  v0.1: Initial release

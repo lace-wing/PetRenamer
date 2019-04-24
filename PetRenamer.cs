@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -21,7 +19,7 @@ namespace PetRenamer
             return item.type > 0 && (item.shoot != 0 || item.buffType != 0);
         }
 
-        public override void PostSetupContent()
+        public override void Load()
         {
             if (!Main.dedServ && Main.netMode != 2)
             {

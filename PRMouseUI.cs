@@ -9,11 +9,10 @@ namespace PetRenamer
 {
     class PRMouseUI : UIState
     {
-        internal static bool visible = false;
         internal static string drawString = "";
         internal static Color drawColor = Color.White;
 
-        private string Custom()
+        private string GetPetName()
         {
             string ret = "";
             Rectangle mouse = new Rectangle((int)((float)Main.mouseX + Main.screenPosition.X), (int)((float)Main.mouseY + Main.screenPosition.Y), 1, 1);
@@ -56,14 +55,11 @@ namespace PetRenamer
             }
             return ret;
         }
-
-        //Update
+        
         public override void Update(GameTime gameTime)
         {
             if (Main.hoverItemName != "") return;
             base.Update(gameTime);
-
-            drawString = "";
 
             int lastMouseXbak = Main.lastMouseX;
             int lastMouseYbak = Main.lastMouseY;
@@ -76,7 +72,9 @@ namespace PetRenamer
             PlayerInput.SetZoom_MouseInWorld();
 
             //do stuff
-            drawString = Custom();
+
+            drawString = "";
+            drawString = GetPetName();
 
             Main.lastMouseX = lastMouseXbak;
             Main.lastMouseY = lastMouseYbak;
@@ -85,8 +83,7 @@ namespace PetRenamer
             Main.screenWidth = lastscreenWidthbak;
             Main.screenHeight = lastscreenHeightbak;
         }
-
-        //Draw
+        
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             if (Main.hoverItemName != "" || drawString == "" || Main.LocalPlayer.mouseInterface || Main.mouseText) return;

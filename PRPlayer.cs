@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.UI.Chat;
 
 namespace PetRenamer
@@ -16,7 +13,7 @@ namespace PetRenamer
         public int petTypeLight;
         public string petNameLight;
 
-        private int prevItemType = 0;
+        private int prevItemType;
 
         public override void Initialize()
         {
@@ -24,6 +21,8 @@ namespace PetRenamer
             petNameVanity = "";
             petTypeLight = 0;
             petNameLight = "";
+
+            prevItemType = 0;
         }
 
         public bool MouseItemChangedToPetItem
@@ -33,7 +32,6 @@ namespace PetRenamer
                 return prevItemType != Main.mouseItem.type && PetRenamer.IsPetItem(Main.mouseItem);
             }
         }
-
 
         public override void PostUpdateEquips()
         {
