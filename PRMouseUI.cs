@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.UI.Chat;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameInput;
+using System;
 
 namespace PetRenamer
 {
@@ -15,7 +16,7 @@ namespace PetRenamer
         private string GetPetName()
         {
             string ret = "";
-            Rectangle mouse = new Rectangle((int)((float)Main.mouseX + Main.screenPosition.X), (int)((float)Main.mouseY + Main.screenPosition.Y), 1, 1);
+            Rectangle mouse = new Rectangle((int)(Main.mouseX + Main.screenPosition.X), (int)(Main.mouseY + Main.screenPosition.Y), 1, 1);
             if (Main.LocalPlayer.gravDir == -1f)
             {
                 mouse.Y = (int)Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
@@ -45,6 +46,14 @@ namespace PetRenamer
 
                     Rectangle projectilerect = proj.getRect();
                     projectilerect.Inflate(2, 2);
+
+                    //fix for some ACT pets
+                    if (Array.BinarySearch(PetRenamer.ACTPetsWithSmallVerticalHitbox, proj.type) >= 0)
+                    {
+                        projectilerect.Y -= 16;
+                        projectilerect.Height += 16;
+                    }
+
                     if (mouse.Intersects(projectilerect)) //mouse cursor inside hitbox
                     {
                         drawColor = new Color((byte)(255 * num), (byte)(255 * num), (byte)(255 * num), Main.mouseTextColor);
@@ -72,7 +81,6 @@ namespace PetRenamer
             PlayerInput.SetZoom_MouseInWorld();
 
             //do stuff
-
             drawString = "";
             drawString = GetPetName();
 

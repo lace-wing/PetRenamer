@@ -50,42 +50,35 @@ namespace PetRenamer
                 {
                     PRItem petItem = item.GetGlobalItem<PRItem>();
 
-                    if (petItem.petOwner != "" && petItem.petOwner != caller.Player.name)
+                    string previousName = petItem.petName;
+
+                    string newName = "";
+                    for (int i = 0; i < args.Length; i++)
                     {
-                        Main.NewText("You are not the original owner of this pet!", Color.Red);
+                        newName += args[i] + ((i != args.Length - 1)?" ": "");
+                    }
+
+                    if (previousName != "" && (newName == "delete" || newName == "del"))
+                    {
+                        petItem.petName = "";
+                        petItem.petOwner = "";
+                        Main.NewText("Nickname '" + previousName + "' removed", Color.OrangeRed);
                     }
                     else
                     {
-                        string previousName = petItem.petName;
-
-                        string newName = "";
-                        for (int i = 0; i < args.Length; i++)
+                        petItem.petName = newName;
+                        petItem.petOwner = caller.Player.name;
+                        if (previousName == "")
                         {
-                            newName += args[i] + ((i != args.Length - 1)?" ": "");
+                            Main.NewText("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
                         }
-
-                        if (previousName != "" && (newName == "delete" || newName == "del"))
+                        else if (previousName == petItem.petName)
                         {
-                            petItem.petName = "";
-                            petItem.petOwner = "";
-                            Main.NewText("Nickname '" + previousName + "' removed", Color.OrangeRed);
+                            Main.NewText("Pet is already called '" + previousName + "'", Color.OrangeRed);
                         }
                         else
                         {
-                            petItem.petName = newName;
-                            petItem.petOwner = caller.Player.name;
-                            if (previousName == "")
-                            {
-                                Main.NewText("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
-                            }
-                            else if (previousName == petItem.petName)
-                            {
-                                Main.NewText("Pet is already called '" + previousName + "'", Color.OrangeRed);
-                            }
-                            else
-                            {
-                                Main.NewText("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
-                            }
+                            Main.NewText("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
                         }
                     }
                 }

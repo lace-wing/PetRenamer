@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -13,6 +14,8 @@ namespace PetRenamer
 
         internal static UserInterface PRMouseUIInterface;
         internal static PRMouseUI PRMouseUI;
+
+        public static int[] ACTPetsWithSmallVerticalHitbox;
 
         public static bool IsPetItem(Item item)
         {
@@ -30,6 +33,21 @@ namespace PetRenamer
             }
         }
 
+        public override void PostSetupContent()
+        {
+            List<int> tempList = new List<int>();
+            for (int i = Main.maxProjectileTypes; i < ProjectileLoader.ProjectileCount; i++)
+            {
+                ModProjectile mProj = ProjectileLoader.GetProjectile(i);
+                if (mProj != null && mProj.GetType().Name.StartsWith("CuteSlime"))
+                {
+                    tempList.Add(mProj.projectile.type);
+                }
+            }
+            ACTPetsWithSmallVerticalHitbox = tempList.ToArray();
+            Array.Sort(ACTPetsWithSmallVerticalHitbox);
+        }
+
         public override void Unload()
         {
             if (!Main.dedServ && Main.netMode != 2)
@@ -37,6 +55,7 @@ namespace PetRenamer
                 PRMouseUIInterface = null;
                 PRMouseUI = null;
             }
+            ACTPetsWithSmallVerticalHitbox = null;
         }
 
         public override void UpdateUI(GameTime gameTime)
