@@ -19,4 +19,4 @@ Example:
 
  Changelog:
 
- v1.0: Initial release
+ v1.0 and 1.0.0.1: Initial release and added icon
