@@ -50,8 +50,8 @@ namespace PetRenamer
                     //fix for some ACT pets
                     if (Array.BinarySearch(PetRenamer.ACTPetsWithSmallVerticalHitbox, proj.type) >= 0)
                     {
-                        projectilerect.Y -= 16;
-                        projectilerect.Height += 16;
+                        projectilerect.Y -= (int)(16 * proj.scale);
+                        projectilerect.Height += (int)(16 * proj.scale);
                     }
 
                     if (mouse.Intersects(projectilerect)) //mouse cursor inside hitbox

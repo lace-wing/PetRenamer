@@ -58,11 +58,11 @@ namespace PetRenamer
                         newName += args[i] + ((i != args.Length - 1)?" ": "");
                     }
 
-                    if (previousName != "" && (newName == "delete" || newName == "del"))
+                    if (previousName != "" && newName == "reset")
                     {
                         petItem.petName = "";
                         petItem.petOwner = "";
-                        Main.NewText("Nickname '" + previousName + "' removed", Color.OrangeRed);
+                        Main.NewText("Nickname '" + previousName + "' reset", Color.OrangeRed);
                     }
                     else
                     {
