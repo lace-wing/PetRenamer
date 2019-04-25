@@ -57,9 +57,9 @@ namespace PetRenamer
                     ((PetRenamer.IsPetItem(Main.mouseItem) && !Main.chatRelease) ||
                     MouseItemChangedToPetItem))
                 {
-                    if (!Main.chatText.StartsWith("/renamepet") && Main.chatText.Length == 0)
+                    if (!Main.chatText.StartsWith(PRCommand.CommandStart) && Main.chatText.Length == 0)
                     {
-                        ChatManager.AddChatText(Main.fontMouseText, "/renamepet ", Vector2.One);
+                        ChatManager.AddChatText(Main.fontMouseText, PRCommand.CommandStart, Vector2.One);
                     }
                 }
 

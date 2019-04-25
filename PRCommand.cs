@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace PetRenamer
@@ -15,11 +14,13 @@ namespace PetRenamer
             }
         }
 
+        private const string COMMANDNAME = "renamepet";
+
         public override string Command
         {
             get
             {
-                return "renamepet";
+                return COMMANDNAME;
             }
         }
 
@@ -27,7 +28,7 @@ namespace PetRenamer
         {
             get
             {
-                return "/renamepet newName";
+                return "/" + COMMANDNAME + " newName";
             }
         }
 
@@ -35,13 +36,29 @@ namespace PetRenamer
         {
             get
             {
-                return "Set a name or rename the pet item in your mouse. newName = reset -> remove name";
+                return "Set a name or rename the pet item in your mouse. newName = " + Reset + " -> remove name";
+            }
+        }
+
+        public string Reset
+        {
+            get
+            {
+                return "reset";
+            }
+        }
+
+        public static string CommandStart
+        {
+            get
+            {
+                return "/" + COMMANDNAME + " ";
             }
         }
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (args.Length < 1) Main.NewText("/renamepet newName");
+            if (args.Length < 1) Main.NewText(Usage);
             else
             {
                 Item item = Main.mouseItem;
@@ -58,7 +75,7 @@ namespace PetRenamer
                         newName += args[i] + ((i != args.Length - 1)?" ": "");
                     }
 
-                    if (previousName != "" && newName == "reset")
+                    if (previousName != "" && newName == Reset)
                     {
                         petItem.petName = "";
                         petItem.petOwner = "";
@@ -84,7 +101,14 @@ namespace PetRenamer
                 }
                 else
                 {
-                    Main.NewText(item.Name + "not a valid item!", Color.OrangeRed);
+                    if (item.type > 0)
+                    {
+                        Main.NewText(item.Name + " is not a valid item!", Color.OrangeRed);
+                    }
+                    else
+                    {
+                        Main.NewText("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
+                    }
                 }
             }
         }

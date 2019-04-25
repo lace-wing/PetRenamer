@@ -19,7 +19,13 @@ namespace PetRenamer
 
         public static bool IsPetItem(Item item)
         {
-            return item.type > 0 && (item.shoot != 0 || item.buffType != 0);
+            bool checkItem = item.type > 0 && item.shoot != 0 && item.buffType != 0;
+            bool checkBuff = false;
+            if (checkItem && item.buffType < Main.vanityPet.Length)
+            {
+                checkBuff = Main.vanityPet[item.buffType] || Main.lightPet[item.buffType];
+            }
+            return checkItem && checkBuff;
         }
 
         public override void Load()
