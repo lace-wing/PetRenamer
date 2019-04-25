@@ -22,8 +22,6 @@ namespace PetRenamer
                 mouse.Y = (int)Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
             }
 
-            float num = Main.mouseTextColor / 255f;
-
             for (int k = 0; k < 1000; k++)
             {
                 Projectile proj = Main.projectile[k];
@@ -56,7 +54,8 @@ namespace PetRenamer
 
                     if (mouse.Intersects(projectilerect)) //mouse cursor inside hitbox
                     {
-                        drawColor = new Color((byte)(255 * num), (byte)(255 * num), (byte)(255 * num), Main.mouseTextColor);
+                        float mtc = Main.mouseTextColor / 255f;
+                        drawColor = new Color((byte)(255 * mtc), (byte)(255 * mtc), (byte)(255 * mtc), Main.mouseTextColor);
                         ret = petName;
                         break;
                     }
@@ -81,7 +80,6 @@ namespace PetRenamer
             PlayerInput.SetZoom_MouseInWorld();
 
             //do stuff
-            drawString = "";
             drawString = GetPetName();
 
             Main.lastMouseX = lastMouseXbak;
@@ -118,7 +116,7 @@ namespace PetRenamer
                 mousePos.Y = (int)(Main.screenHeight - vector.Y - 4f);
             }
 
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, drawString, mousePos + new Vector2(0, 0), drawColor, 0, Vector2.Zero, Vector2.One);
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, drawString, mousePos, drawColor, 0, Vector2.Zero, Vector2.One);
         }
     }
 }

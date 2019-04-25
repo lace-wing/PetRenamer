@@ -35,7 +35,7 @@ namespace PetRenamer
         {
             get
             {
-                return "Set a name or rename the pet item in your mouse. newName = del -> clear the name";
+                return "Set a name or rename the pet item in your mouse. newName = reset -> remove name";
             }
         }
 
@@ -84,7 +84,7 @@ namespace PetRenamer
                 }
                 else
                 {
-                    Main.NewText(item.Name + "not a valid item");
+                    Main.NewText(item.Name + "not a valid item!", Color.OrangeRed);
                 }
             }
         }

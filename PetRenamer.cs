@@ -39,7 +39,7 @@ namespace PetRenamer
             for (int i = Main.maxProjectileTypes; i < ProjectileLoader.ProjectileCount; i++)
             {
                 ModProjectile mProj = ProjectileLoader.GetProjectile(i);
-                if (mProj != null && mProj.GetType().Name.StartsWith("CuteSlime"))
+                if (mProj != null && mProj.mod.Name == "AssortedCrazyThings" && mProj.GetType().Name.StartsWith("CuteSlime"))
                 {
                     tempList.Add(mProj.projectile.type);
                 }
