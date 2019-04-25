@@ -2,7 +2,7 @@
 
 ![Icon](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/icon.png)
 
-Terraria Forum link: tbd
+Terraria Forum link: https://forums.terraria.org/index.php?threads/pet-renamer-allows-you-to-name-your-pets.79293/
 
 Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
