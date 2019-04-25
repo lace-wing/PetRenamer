@@ -25,6 +25,12 @@ Example:
 
 `/renamepet reset` >> deletes the current name
 
+Demonstration (gfycat videos):
+
+[Setting a name](https://gfycat.com/unsteadysplendidannelid)
+
+[Removing a name](https://gfycat.com/flickeringringediraniangroundjay)
+
  Changelog:
 
  v1.0 and 1.0.0.1: Initial release and added icon
