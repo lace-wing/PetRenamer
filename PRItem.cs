@@ -53,7 +53,7 @@ namespace PetRenamer
 
         public override bool NeedsSaving(Item item)
         {
-            return petName.Length > 0;
+            return petName.Length > 0 && PetRenamer.IsPetItem(item);
         }
 
         public override TagCompound Save(Item item)
