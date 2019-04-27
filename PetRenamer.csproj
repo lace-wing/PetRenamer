@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PRBuff.cs" />
     <Compile Include="PRCommand.cs" />
     <Compile Include="PRMouseUI.cs" />
     <Compile Include="PRPlayer.cs" />

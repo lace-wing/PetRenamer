@@ -23,3 +23,6 @@ Changelog:
 v1.0.0.2: Narrowed down detection of pet summoning items, if you had any previous items set to a name that weren't a pet, they will be reset upon game quit
 
 v1.0 and 1.0.0.1: Initial release and added icon
+
+Mod recommendations:
+AssortedCrazyThings = Adds alot of pets mostly fit around vanilla
