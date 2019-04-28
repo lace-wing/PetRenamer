@@ -6,6 +6,22 @@ namespace PetRenamer
 {
     public class PRCommand : ModCommand
     {
+        //---custom stuff
+
+        private const string COMMANDNAME = "renamepet";
+        private const string ARGUMENT = "newName";
+        private const string RESET = "reset";
+
+        public static string CommandStart
+        {
+            get
+            {
+                return "/" + COMMANDNAME + " ";
+            }
+        }
+        
+        //---end custom stuff
+
         public override CommandType Type
         {
             get
@@ -13,8 +29,6 @@ namespace PetRenamer
                 return CommandType.Chat;
             }
         }
-
-        private const string COMMANDNAME = "renamepet";
 
         public override string Command
         {
@@ -28,7 +42,7 @@ namespace PetRenamer
         {
             get
             {
-                return "/" + COMMANDNAME + " newName";
+                return "/" + COMMANDNAME + " " + ARGUMENT;
             }
         }
 
@@ -36,23 +50,7 @@ namespace PetRenamer
         {
             get
             {
-                return "Set a name or rename the pet item in your mouse. newName = " + Reset + " -> remove name";
-            }
-        }
-
-        public string Reset
-        {
-            get
-            {
-                return "reset";
-            }
-        }
-
-        public static string CommandStart
-        {
-            get
-            {
-                return "/" + COMMANDNAME + " ";
+                return "Set a name or rename the pet item in your mouse. " + ARGUMENT + " = " + RESET + " -> remove name";
             }
         }
 
@@ -68,14 +66,14 @@ namespace PetRenamer
                     PRItem petItem = item.GetGlobalItem<PRItem>();
 
                     string previousName = petItem.petName;
-
                     string newName = "";
+
                     for (int i = 0; i < args.Length; i++)
                     {
                         newName += args[i] + ((i != args.Length - 1)?" ": "");
                     }
 
-                    if (previousName != "" && newName == Reset)
+                    if (previousName != "" && newName == RESET)
                     {
                         petItem.petName = "";
                         petItem.petOwner = "";

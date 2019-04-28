@@ -10,7 +10,7 @@ How to use:
 * Either open your chat (default: Enter), then left click on a summon item (so it sticks to your cursor), or hold an item in your cursor and then open your chat
 * The chat will then say "/renamepet ", the following words you type in will be accepted as the new pet name
 * It will also save the name of the player that gave the pet its last nickname
-* To remove the name, simply type "reset" as the name 
+* To remove the name, simply type "reset" as the name (yes, you can name your pet "reset" aswell, but only if it doesn't have a name currently)
 
 Notes:
 * Pet names will be saved on the item, even when disabling the mod and enabling it again
@@ -33,6 +33,8 @@ Demonstration (gfycat videos):
 [Removing a name](https://gfycat.com/flickeringringediraniangroundjay)
 
 Changelog:
+
+v1.0.0.3: Buff tip of the summoned pet now also displays its name
 
 v1.0.0.2: Narrowed down detection of pet summoning items, if you had any previous items set to a name that weren't a pet, they will be reset upon game quit
 

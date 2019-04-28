@@ -42,20 +42,19 @@ namespace PetRenamer
                         continue;
                     }
 
-                    Rectangle projectilerect = proj.getRect();
-                    projectilerect.Inflate(2, 2);
+                    Rectangle projRect = proj.getRect();
+                    projRect.Inflate(2, 2);
 
                     //fix for some ACT pets
                     if (Array.BinarySearch(PetRenamer.ACTPetsWithSmallVerticalHitbox, proj.type) >= 0)
                     {
-                        projectilerect.Y -= (int)(16 * proj.scale);
-                        projectilerect.Height += (int)(16 * proj.scale);
+                        projRect.Y -= (int)(16 * proj.scale);
+                        projRect.Height += (int)(16 * proj.scale);
                     }
 
-                    if (mouse.Intersects(projectilerect)) //mouse cursor inside hitbox
+                    if (mouse.Intersects(projRect)) //mouse cursor inside hitbox
                     {
-                        float mtc = Main.mouseTextColor / 255f;
-                        drawColor = new Color((byte)(255 * mtc), (byte)(255 * mtc), (byte)(255 * mtc), Main.mouseTextColor);
+                        drawColor = Main.mouseTextColorReal;
                         ret = petName;
                         break;
                     }
@@ -66,15 +65,15 @@ namespace PetRenamer
         
         public override void Update(GameTime gameTime)
         {
-            if (Main.hoverItemName != "") return;
+            if (Main.hoverItemName != "" || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
             base.Update(gameTime);
 
             int lastMouseXbak = Main.lastMouseX;
             int lastMouseYbak = Main.lastMouseY;
             int mouseXbak = Main.mouseX;
             int mouseYbak = Main.mouseY;
-            int lastscreenWidthbak = Main.screenWidth;
-            int lastscreenHeightbak = Main.screenHeight;
+            int screenWidthbak = Main.screenWidth;
+            int screenHeightbak = Main.screenHeight;
 
             PlayerInput.SetZoom_Unscaled();
             PlayerInput.SetZoom_MouseInWorld();
@@ -86,8 +85,8 @@ namespace PetRenamer
             Main.lastMouseY = lastMouseYbak;
             Main.mouseX = mouseXbak;
             Main.mouseY = mouseYbak;
-            Main.screenWidth = lastscreenWidthbak;
-            Main.screenHeight = lastscreenHeightbak;
+            Main.screenWidth = screenWidthbak;
+            Main.screenHeight = screenHeightbak;
         }
         
         protected override void DrawSelf(SpriteBatch spriteBatch)
