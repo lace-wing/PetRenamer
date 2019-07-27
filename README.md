@@ -4,6 +4,8 @@
 
 Terraria Forum link: https://forums.terraria.org/index.php?threads/pet-renamer-allows-you-to-name-your-pets.79293/
 
+**If you wish to use this mod on a tModLoader version prior to 0.11, download [this](https://github.com/direwolf420/PetRenamer/releases/tag/v1.0.0.3)!**
+
 Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
 How to use:
