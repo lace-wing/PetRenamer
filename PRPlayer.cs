@@ -50,7 +50,7 @@ namespace PetRenamer
                 petNameLight = petItem.petName;
             }
 
-            //only do the autocomplete in chat on the client
+            // Only do the autocomplete in chat on the client
             if (Main.netMode != NetmodeID.Server && Main.myPlayer == player.whoAmI)
             {
                 if (Main.drawingPlayerChat &&

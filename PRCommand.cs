@@ -6,7 +6,7 @@ namespace PetRenamer
 {
     public class PRCommand : ModCommand
     {
-        //---custom stuff
+        #region Custom stuff
 
         private const string COMMANDNAME = "renamepet";
         private const string ARGUMENT = "newName";
@@ -19,8 +19,7 @@ namespace PetRenamer
                 return "/" + COMMANDNAME + " ";
             }
         }
-        
-        //---end custom stuff
+        #endregion
 
         public override CommandType Type
         {
@@ -70,7 +69,7 @@ namespace PetRenamer
 
                     for (int i = 0; i < args.Length; i++)
                     {
-                        newName += args[i] + ((i != args.Length - 1)?" ": "");
+                        newName += args[i] + ((i != args.Length - 1) ? " ": "");
                     }
 
                     if (previousName != "" && newName == RESET)
@@ -99,13 +98,13 @@ namespace PetRenamer
                 }
                 else
                 {
-                    if (item.type > 0)
+                    if (item.type == 0)
                     {
-                        Main.NewText(item.Name + " is not a valid item!", Color.OrangeRed);
+                        Main.NewText("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
                     }
                     else
                     {
-                        Main.NewText("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
+                        Main.NewText(item.Name + " is not a valid item!", Color.OrangeRed);
                     }
                 }
             }

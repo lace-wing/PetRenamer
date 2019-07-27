@@ -16,19 +16,21 @@ namespace PetRenamer
         private string GetPetName()
         {
             string ret = "";
-            Rectangle mouse = new Rectangle((int)(Main.mouseX + Main.screenPosition.X), (int)(Main.mouseY + Main.screenPosition.Y), 1, 1);
-            if (Main.LocalPlayer.gravDir == -1f)
-            {
-                mouse.Y = (int)Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-            }
+            PRPlayer petPlayer;
+            string petName;
+            //Rectangle mouse = new Rectangle((int)(Main.mouseX + Main.screenPosition.X), (int)(Main.mouseY + Main.screenPosition.Y), 1, 1);
+            //if (Main.LocalPlayer.gravDir == -1f)
+            //{
+            //    mouse.Y = (int)Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
+            //}
+            Rectangle mouse = new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1);
 
             for (int k = 0; k < 1000; k++)
             {
                 Projectile proj = Main.projectile[k];
                 if (proj.active)
                 {
-                    PRPlayer petPlayer = Main.player[proj.owner].GetModPlayer<PRPlayer>();
-                    string petName = "";
+                    petPlayer = Main.player[proj.owner].GetModPlayer<PRPlayer>();
                     if (proj.type == petPlayer.petTypeLight)
                     {
                         petName = petPlayer.petNameLight;
@@ -108,7 +110,7 @@ namespace PetRenamer
 
             if (mousePos.X + vector.X + 4f > Main.screenWidth)
             {
-                mousePos.X = (int)((float)Main.screenWidth - vector.X - 4f);
+                mousePos.X = (int)(Main.screenWidth - vector.X - 4f);
             }
             if (mousePos.Y + vector.Y + 4f > Main.screenHeight)
             {

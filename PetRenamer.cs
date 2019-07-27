@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -23,7 +24,7 @@ namespace PetRenamer
             bool checkBuff = false;
             if (checkItem && item.buffType < Main.vanityPet.Length)
             {
-                checkBuff = Main.vanityPet[item.buffType] || Main.lightPet[item.buffType];
+                checkBuff = Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]/* || ProjectileID.Sets.LightPet[item.shoot] || Main.projPet[item.shoot]*/;
             }
             return checkItem && checkBuff;
         }

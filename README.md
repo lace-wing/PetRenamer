@@ -22,7 +22,7 @@ Notes:
 
 Example:
 
-`/renamepet Cute Bunny` >> sets or renames the name of the pet item you are holding to "Cute Bunny"
+`/renamepet Mr. Bones` >> sets or renames the name of the pet item you are holding to "Mr. Bones"
 
 `/renamepet reset` >> deletes the current name
 
@@ -33,6 +33,8 @@ Demonstration (gfycat videos):
 [Removing a name](https://gfycat.com/flickeringringediraniangroundjay)
 
 Changelog:
+
+v1.0.0.4: tml 0.11 update, command says the correct thing now when not holding a pet item
 
 v1.0.0.3: Buff tip of the summoned pet now also displays its name
 
