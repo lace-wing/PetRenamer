@@ -20,18 +20,13 @@ namespace PetRenamer
 
         public static bool IsPetItem(Item item)
         {
-            bool checkItem = item.type > 0 && item.shoot > 0 && item.buffType > 0;
-            bool checkBuff = false;
-            if (checkItem && item.buffType < Main.vanityPet.Length)
-            {
-                checkBuff = Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]/* || ProjectileID.Sets.LightPet[item.shoot] || Main.projPet[item.shoot]*/;
-            }
-            return checkItem && checkBuff;
+            return item.type > 0 && item.shoot > 0 && item.buffType > 0 &&
+                item.buffType < Main.vanityPet.Length && (Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]);
         }
 
         public override void Load()
         {
-            if (!Main.dedServ && Main.netMode != 2)
+            if (!Main.dedServ)
             {
                 PRMouseUI = new PRMouseUI();
                 PRMouseUI.Activate();
@@ -57,7 +52,7 @@ namespace PetRenamer
 
         public override void Unload()
         {
-            if (!Main.dedServ && Main.netMode != 2)
+            if (!Main.dedServ)
             {
                 PRMouseUIInterface = null;
                 PRMouseUI = null;

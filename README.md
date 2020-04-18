@@ -36,6 +36,8 @@ Demonstration (gfycat videos):
 
 Changelog:
 
+v1.0.0.5: nothig
+
 v1.0.0.4: tml 0.11 update, command says the correct thing now when not holding a pet item
 
 v1.0.0.3: Buff tip of the summoned pet now also displays its name

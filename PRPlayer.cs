@@ -25,15 +25,22 @@ namespace PetRenamer
             prevItemType = 0;
         }
 
-        public bool MouseItemChangedToPetItem
+        public bool OpenedChatWithMouseItem => !Main.chatRelease && PetRenamer.IsPetItem(Main.mouseItem);
+
+        public bool MouseItemChangedToPetItem => prevItemType != Main.mouseItem.type && PetRenamer.IsPetItem(Main.mouseItem);
+
+        public override void PostUpdateEquips()
         {
-            get
+            UpdatePets();
+
+            // Only do the autocomplete in chat on the client
+            if (Main.netMode != NetmodeID.Server && Main.myPlayer == player.whoAmI)
             {
-                return prevItemType != Main.mouseItem.type && PetRenamer.IsPetItem(Main.mouseItem);
+                Autocomplete();
             }
         }
 
-        public override void PostUpdateEquips()
+        private void UpdatePets()
         {
             Item item = player.miscEquips[PetRenamer.VANITY_PET];
             if (PetRenamer.IsPetItem(item))
@@ -49,22 +56,20 @@ namespace PetRenamer
                 petTypeLight = item.shoot;
                 petNameLight = petItem.petName;
             }
+        }
 
-            // Only do the autocomplete in chat on the client
-            if (Main.netMode != NetmodeID.Server && Main.myPlayer == player.whoAmI)
+        private void Autocomplete()
+        {
+            if (Main.drawingPlayerChat &&
+                    (OpenedChatWithMouseItem || MouseItemChangedToPetItem))
             {
-                if (Main.drawingPlayerChat &&
-                    ((PetRenamer.IsPetItem(Main.mouseItem) && !Main.chatRelease) ||
-                    MouseItemChangedToPetItem))
+                if (!Main.chatText.StartsWith(PRCommand.CommandStart) && Main.chatText.Length == 0)
                 {
-                    if (!Main.chatText.StartsWith(PRCommand.CommandStart) && Main.chatText.Length == 0)
-                    {
-                        ChatManager.AddChatText(Main.fontMouseText, PRCommand.CommandStart, Vector2.One);
-                    }
+                    ChatManager.AddChatText(Main.fontMouseText, PRCommand.CommandStart, Vector2.One);
                 }
-
-                prevItemType = Main.mouseItem.type;
             }
+
+            prevItemType = Main.mouseItem.type;
         }
     }
 }

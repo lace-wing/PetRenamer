@@ -12,50 +12,20 @@ namespace PetRenamer
         private const string ARGUMENT = "newName";
         private const string RESET = "reset";
 
-        public static string CommandStart
-        {
-            get
-            {
-                return "/" + COMMANDNAME + " ";
-            }
-        }
+        public static string CommandStart => "/" + COMMANDNAME + " ";
         #endregion
 
-        public override CommandType Type
-        {
-            get
-            {
-                return CommandType.Chat;
-            }
-        }
+        public override CommandType Type => CommandType.Chat;
 
-        public override string Command
-        {
-            get
-            {
-                return COMMANDNAME;
-            }
-        }
+        public override string Command => COMMANDNAME;
 
-        public override string Usage
-        {
-            get
-            {
-                return "/" + COMMANDNAME + " " + ARGUMENT;
-            }
-        }
+        public override string Usage => "/" + COMMANDNAME + " " + ARGUMENT;
 
-        public override string Description
-        {
-            get
-            {
-                return "Set a name or rename the pet item in your mouse. " + ARGUMENT + " = " + RESET + " -> remove name";
-            }
-        }
+        public override string Description => "Set a name or rename the pet item in your mouse. " + ARGUMENT + " = " + RESET + " -> remove name";
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (args.Length < 1) Main.NewText(Usage);
+            if (args.Length < 1) caller.Reply(Usage);
             else
             {
                 Item item = Main.mouseItem;
@@ -76,7 +46,7 @@ namespace PetRenamer
                     {
                         petItem.petName = "";
                         petItem.petOwner = "";
-                        Main.NewText("Nickname '" + previousName + "' reset", Color.OrangeRed);
+                        caller.Reply("Nickname '" + previousName + "' reset", Color.OrangeRed);
                     }
                     else
                     {
@@ -84,15 +54,15 @@ namespace PetRenamer
                         petItem.petOwner = caller.Player.name;
                         if (previousName == "")
                         {
-                            Main.NewText("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
+                            caller.Reply("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
                         }
                         else if (previousName == petItem.petName)
                         {
-                            Main.NewText("Pet is already called '" + previousName + "'", Color.OrangeRed);
+                            caller.Reply("Pet is already called '" + previousName + "'", Color.OrangeRed);
                         }
                         else
                         {
-                            Main.NewText("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
+                            caller.Reply("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
                         }
                     }
                 }
@@ -100,11 +70,11 @@ namespace PetRenamer
                 {
                     if (item.type == 0)
                     {
-                        Main.NewText("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
+                        caller.Reply("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
                     }
                     else
                     {
-                        Main.NewText(item.Name + " is not a valid item!", Color.OrangeRed);
+                        caller.Reply(item.Name + " is not a valid item!", Color.OrangeRed);
                     }
                 }
             }
