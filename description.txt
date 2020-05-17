@@ -20,7 +20,7 @@ Example:
 
 Changelog:
 
-v1.0.0.5: nothig
+v1.0.0.5: tml 0.11.7 update
 
 v1.0.0.4: tml 0.11 update, command says the correct thing now when not holding a pet item
 
