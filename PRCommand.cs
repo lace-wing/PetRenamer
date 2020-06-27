@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace PetRenamer
 {
@@ -68,7 +69,7 @@ namespace PetRenamer
                 }
                 else
                 {
-                    if (item.type == 0)
+                    if (item.type == ItemID.None)
                     {
                         caller.Reply("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
                     }

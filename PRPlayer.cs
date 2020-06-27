@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
@@ -14,6 +15,14 @@ namespace PetRenamer
         public string petNameLight;
 
         private int prevItemType;
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (PetRenamer.AutoRecallHotKey.JustPressed)
+            {
+                PetRenamer.ToggleCommandUI();
+            }
+        }
 
         public override void Initialize()
         {
