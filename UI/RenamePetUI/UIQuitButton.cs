@@ -20,23 +20,23 @@ namespace PetRenamer.UI.RenamePetUI
 			{
 				texture = ModContent.GetTexture("PetRenamer/UI/RenamePetUI/UIQuitButton");
 			}
-            this.hoverText = hoverText;
-            BackgroundColor = Color.Transparent;
-            BorderColor = Color.Transparent;
-            Width.Pixels = texture.Width;
-            Height.Pixels = texture.Height;
-            Recalculate();
+			this.hoverText = hoverText;
+			BackgroundColor = Color.Transparent;
+			BorderColor = Color.Transparent;
+			Width.Pixels = texture.Width;
+			Height.Pixels = texture.Height;
+			Recalculate();
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-            base.DrawSelf(spriteBatch);
+			base.DrawSelf(spriteBatch);
 
-            CalculatedStyle innerDimensions = GetInnerDimensions();
+			CalculatedStyle innerDimensions = GetInnerDimensions();
 			Vector2 pos = new Vector2(innerDimensions.X, innerDimensions.Y) - new Vector2((int)(Width.Pixels * 0.75f), (int)(Height.Pixels * 0.75f));
 
-            spriteBatch.Draw(texture, pos, texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            
+			spriteBatch.Draw(texture, pos, texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
 			if (IsMouseHovering)
 			{
 				Main.hoverItemName = hoverText;

@@ -16,7 +16,8 @@ namespace PetRenamer.UI.RenamePetUI
 
 		internal event Action OnEmptyMouseover;
 
-		internal VanillaItemSlotWrapper(int context = ItemSlot.Context.BankItem, float scale = 1f) {
+		internal VanillaItemSlotWrapper(int context = ItemSlot.Context.BankItem, float scale = 1f)
+		{
 			_context = context;
 			_scale = scale;
 			Item = new Item();
@@ -43,16 +44,17 @@ namespace PetRenamer.UI.RenamePetUI
 			}
 		}
 
-		protected override void DrawSelf(SpriteBatch spriteBatch) {
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
 			float oldScale = Main.inventoryScale;
 			Main.inventoryScale = _scale;
 			Rectangle rectangle = GetDimensions().ToRectangle();
 
 			bool contains = ContainsPoint(Main.MouseScreen);
 
-			if (contains && !PlayerInput.IgnoreMouseInterface) {
+			if (contains && !PlayerInput.IgnoreMouseInterface)
+			{
 				Main.LocalPlayer.mouseInterface = true;
-				Item oldItem = Item.Clone();
 				HandleMouseItem();
 			}
 			ItemSlot.Draw(spriteBatch, ref Item, _context, rectangle.TopLeft());

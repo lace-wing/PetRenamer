@@ -9,8 +9,8 @@ using Terraria.UI;
 
 namespace PetRenamer.UI.RenamePetUI
 {
-    //ty jopojelly and darthmorf
-    internal class UIBetterTextBox : UIPanel
+	//ty jopojelly and darthmorf
+	internal class UIBetterTextBox : UIPanel
 	{
 		internal string currentString = string.Empty;
 
@@ -22,7 +22,7 @@ namespace PetRenamer.UI.RenamePetUI
 		private int textBlinkerCount;
 		private int textBlinkerState;
 
-        public event Action OnFocus;
+		public event Action OnFocus;
 
 		public event Action OnUnfocus;
 
@@ -43,7 +43,7 @@ namespace PetRenamer.UI.RenamePetUI
 			SetPadding(0);
 			BackgroundColor = Color.White;
 			BorderColor = Color.Black;
-        }
+		}
 
 		public override void Click(UIMouseEvent evt)
 		{
