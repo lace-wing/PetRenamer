@@ -8,6 +8,29 @@ Terraria Forum link: https://forums.terraria.org/index.php?threads/pet-renamer-a
 
 Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
+There are two ways to use this mod:
+
+## UI
+How to use:
+* Press the hotkey (default: "P")
+* Place a pet summoning item in it
+* Type a name into the text box
+* (optional) Press 'Clear' to delete the text
+* Press 'Apply' to set the text from the text box as the name for the pet
+* (optional) Take out the item
+* Press 'X' to close. Item will be returned to you if it's still in the UI
+
+Notes:
+* If you hold a pet summoning item in your cursor and press the hotkey, the item will be automatically placed in the UI
+* If you leave the UI with the item in it open and close the game, it will appear again next time you play
+
+Demonstration:
+
+![UI](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/Images/ui.png)
+
+[Showcase (gfycat video)](https://gfycat.com/totalformalindochinesetiger)
+
+## Chat Command
 How to use:
 * Either open your chat (default: Enter), then left click on a summon item (so it sticks to your cursor), or hold an item in your cursor and then open your chat
 * The chat will then say "/renamepet ", the following words you type in will be accepted as the new pet name
@@ -34,7 +57,13 @@ Demonstration (gfycat videos):
 
 [Removing a name](https://gfycat.com/flickeringringediraniangroundjay)
 
+Credits:
+* jopojelly for UI
+* darthmorf for UI help
+
 Changelog:
+
+v1.1: An additional way to rename a pet through a UI accessed via hotkey
 
 v1.0.0.5: tml 0.11.7 update
 
