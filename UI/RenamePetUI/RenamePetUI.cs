@@ -15,6 +15,7 @@ namespace PetRenamer.UI.RenamePetUI
 		private UIText titleText;
 		private UIBetterTextBox commandInput;
 		private UIPanel applyButton;
+		private UIPanel randomizeButton;
 		private UIPanel clearButton;
 		private VanillaItemSlotWrapper itemSlot;
 
@@ -97,7 +98,7 @@ namespace PetRenamer.UI.RenamePetUI
 
 			nextElementY += 36;
 
-			float ratioFromCenter = 0.1f;
+			float ratioFromCenter = 0.22f;
 
 			applyButton = new UIPanel()
 			{
@@ -116,6 +117,24 @@ namespace PetRenamer.UI.RenamePetUI
 			};
 			applyButton.Append(applyButonText);
 			Append(applyButton);
+
+			randomizeButton = new UIPanel()
+			{
+				Top = { Pixels = nextElementY },
+				Width = { Pixels = 82f },
+				Height = { Pixels = 30f },
+				HAlign = 0.5f,
+				BackgroundColor = bgColor
+			};
+			randomizeButton.OnClick += (evt, element) => { RandomizeText(); };
+
+			UIText randomizeButtonText = new UIText("Random")
+			{
+				Top = { Pixels = -4f },
+				Left = { Pixels = -2f }
+			};
+			randomizeButton.Append(randomizeButtonText);
+			Append(randomizeButton);
 
 			clearButton = new UIPanel()
 			{
@@ -227,6 +246,32 @@ namespace PetRenamer.UI.RenamePetUI
 				Main.PlaySound(SoundID.MenuTick);
 			}
 			commandInput.SetText("");
+		}
+
+		private void RandomizeText()
+		{
+			if (PetRenamer.randomNames != null)
+			{
+				string name = Main.rand.Next(PetRenamer.randomNames);
+				string fullText = name;
+				if (PetRenamer.randomAdjectives != null)
+				{
+					string adj = Main.rand.Next(PetRenamer.randomAdjectives);
+					if (!Main.rand.NextBool(10))
+					{
+						if (Main.rand.NextBool())
+						{
+							fullText = name + " The " + adj;
+						}
+						else
+						{
+							fullText = adj + " " + name;
+						}
+					}
+				}
+				Main.PlaySound(SoundID.MenuTick);
+				commandInput.SetText(fullText);
+			}
 		}
 	}
 }

@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PetRenamer.UI.MouseoverUI;
 using PetRenamer.UI.RenamePetUI;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,6 +28,10 @@ namespace PetRenamer
 		internal static int[] ACTPetsWithSmallVerticalHitbox;
 
 		private GameTime _lastUpdateUiGameTime;
+
+		internal static string[] randomNames;
+
+		internal static string[] randomAdjectives;
 
 		internal static void ToggleRenamePetUI()
 		{
@@ -58,6 +65,38 @@ namespace PetRenamer
 				(Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]);
 		}
 
+		/// <summary>
+		/// Can return null if an exception occurs
+		/// </summary>
+		private string[] GetArrayFromJson(string name)
+		{
+			//Json format always:
+			/*
+			name.json:
+			{
+				"name": [ "a", "b", "c"],
+				"version": 1,
+				"source": "google"
+			}
+			*/
+			string[] ret = null;
+			try
+			{
+				string bytes = Encoding.UTF8.GetString(GetFileBytes(name + ".json"));
+				JObject json = JsonConvert.DeserializeObject<JObject>(bytes);
+				var data = json?[name];
+				if (data != null)
+				{
+					ret = data.ToObject<string[]>();
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Warn(e);
+			}
+			return ret;
+		}
+
 		public override void Load()
 		{
 			RenamePetUIHotkey = RegisterHotKey("Rename Pet", "P");
@@ -69,6 +108,9 @@ namespace PetRenamer
 				mouseoverUI.Activate();
 				mouseoverUIInterface = new UserInterface();
 				mouseoverUIInterface.SetState(mouseoverUI);
+
+				randomNames = GetArrayFromJson("names");
+				randomAdjectives = GetArrayFromJson("adjectives");
 			}
 		}
 
@@ -83,6 +125,9 @@ namespace PetRenamer
 
 				mouseoverUIInterface = null;
 				mouseoverUI = null;
+
+				randomNames = null;
+				randomAdjectives = null;
 
 				UIQuitButton.texture = null;
 			}
