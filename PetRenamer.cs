@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using PetRenamer.UI.MouseoverUI;
+using PetRenamer.UI.RenamePetUI;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -8,78 +10,81 @@ using Terraria.UI;
 
 namespace PetRenamer
 {
-    class PetRenamer : Mod
+    internal class PetRenamer : Mod
     {
-        public const int VANITY_PET = 0;
-        public const int LIGHT_PET = 1;
+        internal const int VANITY_PET = 0;
+        internal const int LIGHT_PET = 1;
 
-        /*Basically press hotkey (P), window opens
-         * in the window:
-         * title ("Rename pet")
-         * quit/cancel button
-         * item slot 
-         * Text field
-         * Save button
-         */
-        internal static UserInterface commandInterface;
-        //This is just a UIState, it gets a CommandUI appended //maybe redo
-        internal static UIState modUiState;
-        internal static List<CommandUI> commandUis;
+        internal static UserInterface petRenameInterface;
 
-        internal static UserInterface PRMouseUIInterface;
-        internal static PRMouseUI PRMouseUI;
+        internal static UserInterface mouseoverUIInterface;
+        internal static MouseoverUI mouseoverUI;
 
+        internal static ModHotKey RenamePetUIHotkey;
 
-        // Show/Hide individual instance of UI, tied to specific tile
-        internal static void ToggleCommandUI()
+        internal static int[] ACTPetsWithSmallVerticalHitbox;
+
+        private GameTime _lastUpdateUiGameTime;
+
+        internal static void ToggleRenamePetUI()
         {
-            int count = commandUis.Count;
-            if (count > 0)
+            if (petRenameInterface.CurrentState != null)
             {
-                for (int i = 0; i < count; i++)
-                {
-                    CommandUI cUI = commandUis[i];
-                    modUiState.RemoveChild(cUI);
-                }
-                commandUis.Clear();
+                CloseRenamePetUI();
             }
             else
             {
-                CommandUI cUI = new CommandUI();
-                modUiState.Append(cUI);
-                commandUis.Add(cUI);
-                cUI.OnInitialize();
+                OpenRenamePetUI();
             }
-
         }
 
-        public static int[] ACTPetsWithSmallVerticalHitbox;
+        internal static void OpenRenamePetUI()
+        {
+            RenamePetUI ui = new RenamePetUI();
+            UIState state = new UIState();
+            state.Append(ui);
+            petRenameInterface.SetState(state);
+        }
 
-        public static bool IsPetItem(Item item)
+        internal static void CloseRenamePetUI()
+        {
+            petRenameInterface.SetState(null);
+        }
+
+        internal static bool IsPetItem(Item item)
         {
             return item.type > ItemID.None && item.shoot > ProjectileID.None &&
                 item.buffType > 0 && item.buffType < Main.vanityPet.Length &&
                 (Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]);
         }
 
-        internal static ModHotKey AutoRecallHotKey;
-
         public override void Load()
         {
-            AutoRecallHotKey = RegisterHotKey("Rename Pet", "P");
+            RenamePetUIHotkey = RegisterHotKey("Rename Pet", "P");
             if (!Main.dedServ)
             {
-                modUiState = new UIState();
-                modUiState.Activate();
-                commandInterface = new UserInterface();
-                commandInterface?.SetState(modUiState);
+                petRenameInterface = new UserInterface();
 
-                commandUis = new List<CommandUI>();
+                mouseoverUI = new MouseoverUI();
+                mouseoverUI.Activate();
+                mouseoverUIInterface = new UserInterface();
+                mouseoverUIInterface.SetState(mouseoverUI);
+            }
+        }
 
-                PRMouseUI = new PRMouseUI();
-                PRMouseUI.Activate();
-                PRMouseUIInterface = new UserInterface();
-                PRMouseUIInterface.SetState(PRMouseUI);
+        public override void Unload()
+        {
+            RenamePetUIHotkey = null;
+            ACTPetsWithSmallVerticalHitbox = null;
+
+            if (!Main.dedServ)
+            {
+                petRenameInterface = null;
+
+                mouseoverUIInterface = null;
+                mouseoverUI = null;
+
+                UIQuitButton.texture = null;
             }
         }
 
@@ -100,70 +105,58 @@ namespace PetRenamer
 
         public override void PreSaveAndQuit()
         {
-            modUiState.RemoveAllChildren();
-        }
-
-        public override void Unload()
-        {
-            AutoRecallHotKey = null;
-            ACTPetsWithSmallVerticalHitbox = null;
-
-            if (!Main.dedServ)
+            //Calls Deactivate and drops the item
+            if (petRenameInterface.CurrentState != null)
             {
-                commandInterface = null;
-                modUiState = null;
-                commandUis = null;
-
-                PRMouseUIInterface = null;
-                PRMouseUI = null;
+                RenamePetUI.saveItemInUI = true;
+                petRenameInterface.SetState(null);
             }
         }
-
-        private GameTime _lastUpdateUiGameTime;
 
         public override void UpdateUI(GameTime gameTime)
         {
             _lastUpdateUiGameTime = gameTime;
-            if (commandInterface?.CurrentState != null)
+            if (petRenameInterface?.CurrentState != null)
             {
-                commandInterface.Update(gameTime);
+                petRenameInterface.Update(gameTime);
             }
-            PRMouseUI.Update(gameTime);
+            mouseoverUI.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int mouseOverIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Over"));
-            if (mouseOverIndex != -1)
+            int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Over"));
+            if (index != -1)
             {
-                layers.Insert(++mouseOverIndex, new LegacyGameInterfaceLayer
+                layers.Insert(++index, new LegacyGameInterfaceLayer
                     (
                     "PetRenamer: Mouse Over",
                     delegate
                     {
-                        if (_lastUpdateUiGameTime != null && PRMouseUIInterface?.CurrentState != null)
+                        if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null)
                         {
-                            PRMouseUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
+                            mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
                         }
                         return true;
                     },
                     InterfaceScaleType.UI)
                 );
             }
-            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            if (mouseTextIndex != -1)
+            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            if (index != -1)
             {
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                "PetRenamer: Text Box",
-                delegate
-                {
-                    if (_lastUpdateUiGameTime != null && commandInterface?.CurrentState != null)
+                layers.Insert(index, new LegacyGameInterfaceLayer(
+                    "PetRenamer: Rename Pet",
+                    delegate
                     {
-                        commandInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                    }
-                    return true;
-                },
-                InterfaceScaleType.UI));
+                        if (_lastUpdateUiGameTime != null && petRenameInterface?.CurrentState != null)
+                        {
+                            petRenameInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
+                        }
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
             }
         }
     }

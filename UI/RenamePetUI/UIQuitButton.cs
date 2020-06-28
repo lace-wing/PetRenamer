@@ -1,40 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace PetRenamer
+namespace PetRenamer.UI.RenamePetUI
 {
-	// ty jopojelly and darthmorf
+	//ty jopojelly and darthmorf
 	internal class UIQuitButton : UIPanel
 	{
-		public static Texture2D texture;
-
-		public event EventHandler OnSelectedChanged;
+		internal static Texture2D texture;
 
 		internal string hoverText;
 
-		public UIQuitButton(string hoverText)
+		internal UIQuitButton(string hoverText)
 		{
 			if (texture == null)
 			{
-				//TODO unload
-				texture = ModContent.GetTexture("PetRenamer/exit");
+				texture = ModContent.GetTexture("PetRenamer/UI/RenamePetUI/UIQuitButton");
 			}
             this.hoverText = hoverText;
             BackgroundColor = Color.Transparent;
             BorderColor = Color.Transparent;
-            Width.Set(14f, 0);
-            Height.Set(15f, 0);
+            Width.Pixels = texture.Width;
+            Height.Pixels = texture.Height;
             Recalculate();
-		}
-
-		public void SetHoverText(string hoverText)
-		{
-			this.hoverText = hoverText;
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -42,12 +33,10 @@ namespace PetRenamer
             base.DrawSelf(spriteBatch);
 
             CalculatedStyle innerDimensions = GetInnerDimensions();
-            Vector2 pos = new Vector2(innerDimensions.X-15, innerDimensions.Y - 5);
-
+			Vector2 pos = new Vector2(innerDimensions.X, innerDimensions.Y) - new Vector2((int)(Width.Pixels * 0.75f), (int)(Height.Pixels * 0.75f));
 
             spriteBatch.Draw(texture, pos, texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             
-
 			if (IsMouseHovering)
 			{
 				Main.hoverItemName = hoverText;

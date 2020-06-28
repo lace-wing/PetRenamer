@@ -6,26 +6,21 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameInput;
 using System;
 
-namespace PetRenamer
+namespace PetRenamer.UI.MouseoverUI
 {
-    class PRMouseUI : UIState
+    internal class MouseoverUI : UIState
     {
-        internal static string drawString = "";
+        internal static string drawString = string.Empty;
         internal static Color drawColor = Color.White;
 
         private string GetPetName()
         {
-            string ret = "";
+            string ret = string.Empty;
             PRPlayer petPlayer;
             string petName;
-            //Rectangle mouse = new Rectangle((int)(Main.mouseX + Main.screenPosition.X), (int)(Main.mouseY + Main.screenPosition.Y), 1, 1);
-            //if (Main.LocalPlayer.gravDir == -1f)
-            //{
-            //    mouse.Y = (int)Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-            //}
             Rectangle mouse = new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1);
 
-            for (int k = 0; k < 1000; k++)
+            for (int k = 0; k < Main.maxProjectiles; k++)
             {
                 Projectile proj = Main.projectile[k];
                 if (proj.active)
@@ -47,7 +42,7 @@ namespace PetRenamer
                     Rectangle projRect = proj.getRect();
                     projRect.Inflate(2, 2);
 
-                    //fix for some ACT pets
+                    //Fix for some ACT pets
                     if (Array.BinarySearch(PetRenamer.ACTPetsWithSmallVerticalHitbox, proj.type) >= 0)
                     {
                         projRect.Y -= (int)(16 * proj.scale);
@@ -67,7 +62,7 @@ namespace PetRenamer
         
         public override void Update(GameTime gameTime)
         {
-            if (Main.hoverItemName != "" || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
+            if (Main.hoverItemName != string.Empty || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
             base.Update(gameTime);
 
             int lastMouseXbak = Main.lastMouseX;
@@ -80,7 +75,7 @@ namespace PetRenamer
             PlayerInput.SetZoom_Unscaled();
             PlayerInput.SetZoom_MouseInWorld();
 
-            //do stuff
+            //Do stuff
             drawString = GetPetName();
 
             Main.lastMouseX = lastMouseXbak;
@@ -93,7 +88,7 @@ namespace PetRenamer
         
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (Main.hoverItemName != "" || drawString == "" || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
+            if (Main.hoverItemName != string.Empty || drawString == string.Empty || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
             base.DrawSelf(spriteBatch);
 
             Main.LocalPlayer.showItemIcon = false;

@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace PetRenamer
 {
-    public class PRCommand : ModCommand
+    internal class PRCommand : ModCommand
     {
         #region Custom stuff
 
@@ -43,17 +43,17 @@ namespace PetRenamer
                         newName += args[i] + ((i != args.Length - 1) ? " ": "");
                     }
 
-                    if (previousName != "" && newName == RESET)
+                    if (previousName != string.Empty && newName == RESET)
                     {
-                        petItem.petName = "";
-                        petItem.petOwner = "";
+                        petItem.petName = string.Empty;
+                        petItem.petOwner = string.Empty;
                         caller.Reply("Nickname '" + previousName + "' reset", Color.OrangeRed);
                     }
                     else
                     {
                         petItem.petName = newName;
                         petItem.petOwner = caller.Player.name;
-                        if (previousName == "")
+                        if (previousName == string.Empty)
                         {
                             caller.Reply("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
                         }
