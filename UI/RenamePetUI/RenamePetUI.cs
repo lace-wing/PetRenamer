@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
@@ -261,10 +262,12 @@ namespace PetRenamer.UI.RenamePetUI
 					{
 						if (Main.rand.NextBool())
 						{
-							fullText = name + " The " + adj;
+							fullText = name + " the " + adj;
 						}
 						else
 						{
+							var adjSameLetter = PetRenamer.randomAdjectives.Where(s => s.StartsWith(name[0].ToString())).ToArray();
+							adj = Main.rand.Next(adjSameLetter);
 							fullText = adj + " " + name;
 						}
 					}
