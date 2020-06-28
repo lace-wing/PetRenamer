@@ -14,8 +14,7 @@ namespace PetRenamer.UI.RenamePetUI
 		private readonly float _scale;
 		internal Func<Item, bool> ValidItemFunc;
 
-		internal event Action OnEmptyMouseover;
-		internal event Action OnEmptyMouseoverAfterOneSecond;
+		internal event Action<int> OnEmptyMouseover;
 
 		private int timer = 0;
 
@@ -65,11 +64,7 @@ namespace PetRenamer.UI.RenamePetUI
 			if (contains && Item.IsAir)
 			{
 				timer++;
-				OnEmptyMouseover?.Invoke();
-				if (timer > 60)
-				{
-					OnEmptyMouseoverAfterOneSecond?.Invoke();
-				}
+				OnEmptyMouseover?.Invoke(timer);
 			}
 			else if (!contains)
 			{

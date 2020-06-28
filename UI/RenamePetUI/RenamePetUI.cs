@@ -59,17 +59,22 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f,
 				ValidItemFunc = item => item.IsAir || PetRenamer.IsPetItem(item)
 			};
-			itemSlot.OnEmptyMouseover += () => {
+			itemSlot.OnEmptyMouseover += (timer) => {
 				Main.hoverItemName = "Place a pet summoning item here";
-			};
-			itemSlot.OnEmptyMouseoverAfterOneSecond += () => {
-				Main.hoverItemName = "1. Place a pet summoning item here"
+				if (timer > 60)
+				{
+					Main.hoverItemName = "1. Place a pet summoning item here"
 				+ "\n2. Type a name into the text box"
 				+ "\n2 (optional). Press 'Clear' to delete the text"
 				+ "\n3. Press 'Apply' to set the text from the text box as the name for the pet"
 				+ "\n3 (optional). Take out the item"
 				+ "\n4. Press 'X' to close. Item will be returned to you if it's still in the UI"
 				+ "\nNote: If you leave the UI with the item in it open and close the game, it will appear again next time you play";
+				}
+				else if (timer > 3600)
+				{
+					Main.hoverItemName = "Santa isn't real";
+				}
 			};
 			Append(itemSlot);
 
