@@ -20,7 +20,6 @@ namespace PetRenamer.UI.RenamePetUI
 
 		private readonly static Color bgColor = new Color(73, 94, 171);
 		private readonly static Color hoverColor = new Color(100, 118, 184);
-		private readonly static string sampleName = "Sample Name";
 
 		internal const int width = 480;
 		internal const int height = 155;
@@ -51,7 +50,7 @@ namespace PetRenamer.UI.RenamePetUI
 			Append(titleText);
 
 			nextElementY += 20;
-			string name = sampleName;
+			string name = string.Empty;
 
 			itemSlot = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f)
 			{
@@ -60,7 +59,18 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f,
 				ValidItemFunc = item => item.IsAir || PetRenamer.IsPetItem(item)
 			};
-			itemSlot.OnEmptyMouseover += () => { Main.hoverItemName = "Place a pet summoning item here"; };
+			itemSlot.OnEmptyMouseover += () => {
+				Main.hoverItemName = "Place a pet summoning item here";
+			};
+			itemSlot.OnEmptyMouseoverAfterOneSecond += () => {
+				Main.hoverItemName = "1. Place a pet summoning item here"
+				+ "\n2. Type a name into the text box"
+				+ "\n2 (optional). Press 'Clear' to delete the text"
+				+ "\n3. Press 'Apply' to set the text from the text box as the name for the pet"
+				+ "\n3 (optional). Take out the item"
+				+ "\n4. Press 'X' to close. Item will be returned to you if it's still in the UI"
+				+ "\nNote: If you leave the UI with the item in it open and close the game, it will appear again next time you play";
+			};
 			Append(itemSlot);
 
 			nextElementY += 49 + 6; //49 is the size of an item slot, 6 is for visual gap

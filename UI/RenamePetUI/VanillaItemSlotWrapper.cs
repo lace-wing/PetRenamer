@@ -15,6 +15,9 @@ namespace PetRenamer.UI.RenamePetUI
 		internal Func<Item, bool> ValidItemFunc;
 
 		internal event Action OnEmptyMouseover;
+		internal event Action OnEmptyMouseoverAfterOneSecond;
+
+		private int timer = 0;
 
 		internal VanillaItemSlotWrapper(int context = ItemSlot.Context.BankItem, float scale = 1f)
 		{
@@ -61,7 +64,16 @@ namespace PetRenamer.UI.RenamePetUI
 
 			if (contains && Item.IsAir)
 			{
+				timer++;
 				OnEmptyMouseover?.Invoke();
+				if (timer > 60)
+				{
+					OnEmptyMouseoverAfterOneSecond?.Invoke();
+				}
+			}
+			else if (!contains)
+			{
+				timer = 0;
 			}
 
 			Main.inventoryScale = oldScale;
