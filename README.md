@@ -15,6 +15,7 @@ How to use:
 * Press the hotkey (default: "P")
 * Place a pet summoning item in it
 * Type a name into the text box
+* (optional) Press 'Random' for a random name
 * (optional) Press 'Clear' to delete the text
 * Press 'Apply' to set the text from the text box as the name for the pet
 * (optional) Take out the item
@@ -62,6 +63,8 @@ Credits:
 * darthmorf for UI help
 
 Changelog:
+
+v1.1.1: Using the UI allows you to randomize the name, over 10 Million possible names
 
 v1.1: An additional way to rename a pet through a UI accessed via hotkey
 

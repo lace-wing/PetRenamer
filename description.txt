@@ -8,6 +8,8 @@ For instructions on both, visit the homepage
 
 Changelog:
 
+v1.1.1: Using the UI allows you to randomize the name, over 10 Million possible names
+
 v1.1: An additional way to rename a pet through a UI accessed via hotkey
 
 v1.0.0.5: tml 0.11.7 update
