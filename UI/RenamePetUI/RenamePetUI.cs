@@ -224,6 +224,7 @@ namespace PetRenamer.UI.RenamePetUI
 			Top.Pixels = RelativeTop;
 
 			applyButton.BackgroundColor = applyButton.IsMouseHovering ? hoverColor : bgColor;
+			randomizeButton.BackgroundColor = randomizeButton.IsMouseHovering ? hoverColor : bgColor;
 			clearButton.BackgroundColor = clearButton.IsMouseHovering ? hoverColor : bgColor;
 		}
 
