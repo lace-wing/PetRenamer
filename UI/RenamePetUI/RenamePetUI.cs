@@ -68,7 +68,7 @@ namespace PetRenamer.UI.RenamePetUI
 					Main.hoverItemName = "1. Place a pet summoning item here"
 				+ "\n2. Type a name into the text box"
 				+ "\n2. (optional) Press 'Clear' to delete the text"
-				+ "\n2. (optional. Press 'Random' for a random name"
+				+ "\n2. (optional) Press 'Random' for a random name"
 				+ "\n3. Press 'Apply' to set the text from the text box as the name for the pet"
 				+ "\n3. (optional) Take out the item"
 				+ "\n4. Press 'X' to close. Item will be returned to you if it's still in the UI"
