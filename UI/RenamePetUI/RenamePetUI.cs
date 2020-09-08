@@ -111,6 +111,10 @@ namespace PetRenamer.UI.RenamePetUI
 				Width = { Precent = 1f },
 				Height = { Pixels = 30f }
 			};
+			if (!itemSlot.Item.IsAir)
+			{
+				commandInput.Focus();
+			}
 			Append(commandInput);
 
 			nextElementY += 36;
@@ -274,9 +278,9 @@ namespace PetRenamer.UI.RenamePetUI
 				string fullText = name;
 				if (PetRenamer.randomAdjectives != null)
 				{
-					string adj = Main.rand.Next(PetRenamer.randomAdjectives);
 					if (!Main.rand.NextBool(10))
 					{
+						string adj = Main.rand.Next(PetRenamer.randomAdjectives);
 						if (Main.rand.NextBool())
 						{
 							fullText = name + " the " + adj;
