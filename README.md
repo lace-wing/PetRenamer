@@ -64,6 +64,8 @@ Credits:
 
 Changelog:
 
+v1.1.1.1: When opening the UI and the mouse item slots in, the text field now auto-focuses
+
 v1.1.1: Using the UI allows you to randomize the name, over 10 million possible names
 
 v1.1: An additional way to rename a pet through a UI accessed via hotkey
