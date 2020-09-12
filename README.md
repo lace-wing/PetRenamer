@@ -64,6 +64,8 @@ Credits:
 
 Changelog:
 
+v1.1.1.2: Fix rare bug with mouseovering a pet in multiplayer
+
 v1.1.1.1: When opening the UI and the mouse item slots in, the text field now auto-focuses
 
 v1.1.1: Using the UI allows you to randomize the name, over 10 million possible names
