@@ -23,7 +23,7 @@ namespace PetRenamer.UI.MouseoverUI
 			for (int k = 0; k < Main.maxProjectiles; k++)
 			{
 				Projectile proj = Main.projectile[k];
-				if (proj.active)
+				if (proj.active && proj.owner < Main.maxPlayers)
 				{
 					petPlayer = Main.player[proj.owner].GetModPlayer<PRPlayer>();
 					if (proj.type == petPlayer.petTypeLight)
