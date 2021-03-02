@@ -61,7 +61,8 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f,
 				ValidItemFunc = item => item.IsAir || PetRenamer.IsPetItem(item)
 			};
-			itemSlot.OnEmptyMouseover += (timer) => {
+			itemSlot.OnEmptyMouseover += (timer) =>
+			{
 				Main.hoverItemName = "Place a pet summoning item here";
 				if (timer > 60)
 				{

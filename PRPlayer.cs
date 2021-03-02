@@ -92,6 +92,11 @@ namespace PetRenamer
 
 		private void Autocomplete()
 		{
+			if (!Config.Instance.EnableChatAutofill)
+			{
+				return;
+			}
+
 			if (Main.drawingPlayerChat &&
 					(OpenedChatWithMouseItem || MouseItemChangedToPetItem))
 			{
@@ -101,7 +106,7 @@ namespace PetRenamer
 				}
 			}
 
-			prevItemType = Main.mouseItem.type;
+			prevItemType = Main.mouseItem?.type ?? 0;
 		}
 	}
 }

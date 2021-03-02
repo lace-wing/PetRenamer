@@ -64,6 +64,8 @@ Credits:
 
 Changelog:
 
+v1.1.2: Add a config + setting for disabling the chat autofill feature
+
 v1.1.1.2: Fix rare bug with mouseovering a pet in multiplayer
 
 v1.1.1.1: When opening the UI and the mouse item slots in, the text field now auto-focuses
