@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.UI;
 
@@ -25,8 +26,9 @@ namespace PetRenamer.UI.RenamePetUI
 			Item = new Item();
 			Item.SetDefaults(0);
 
-			Width.Set(Main.inventoryBack9Texture.Width * scale, 0f);
-			Height.Set(Main.inventoryBack9Texture.Height * scale, 0f);
+			var inventoryBack9 = TextureAssets.InventoryBack9;
+			Width.Set(inventoryBack9.Width() * scale, 0f);
+			Height.Set(inventoryBack9.Height() * scale, 0f);
 		}
 
 		/// <summary>

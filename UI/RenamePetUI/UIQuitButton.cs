@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -10,21 +11,22 @@ namespace PetRenamer.UI.RenamePetUI
 	//ty jopojelly and darthmorf
 	internal class UIQuitButton : UIPanel
 	{
-		internal static Texture2D texture;
+		internal static Asset<Texture2D> asset;
 
 		internal string hoverText;
 
 		internal UIQuitButton(string hoverText)
 		{
-			if (texture == null)
+			if (asset == null)
 			{
-				texture = ModContent.GetTexture("PetRenamer/UI/RenamePetUI/UIQuitButton");
+				//When UI dimensions depend on the texture, Immediate is required
+				asset = ModContent.Request<Texture2D>("PetRenamer/UI/RenamePetUI/UIQuitButton", AssetRequestMode.ImmediateLoad);
 			}
 			this.hoverText = hoverText;
 			BackgroundColor = Color.Transparent;
 			BorderColor = Color.Transparent;
-			Width.Pixels = texture.Width;
-			Height.Pixels = texture.Height;
+			Width.Pixels = asset.Width();
+			Height.Pixels = asset.Height();
 			Recalculate();
 		}
 
@@ -35,7 +37,8 @@ namespace PetRenamer.UI.RenamePetUI
 			CalculatedStyle innerDimensions = GetInnerDimensions();
 			Vector2 pos = new Vector2(innerDimensions.X, innerDimensions.Y) - new Vector2((int)(Width.Pixels * 0.75f), (int)(Height.Pixels * 0.75f));
 
-			spriteBatch.Draw(texture, pos, texture.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			Texture2D value = asset.Value;
+			spriteBatch.Draw(value, pos, value.Bounds, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			if (IsMouseHovering)
 			{

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.UI;
 using Terraria.UI.Chat;
@@ -45,13 +47,14 @@ namespace PetRenamer.UI.MouseoverUI
 					//Fix for some ACT pets
 					if (Array.BinarySearch(PetRenamer.ACTPetsWithSmallVerticalHitbox, proj.type) >= 0)
 					{
-						projRect.Y -= (int)(16 * proj.scale);
-						projRect.Height += (int)(16 * proj.scale);
+						int offset = (int)(6 * proj.scale);
+						projRect.Y -= offset;
+						projRect.Height += offset;
 					}
 
 					if (mouse.Intersects(projRect)) //mouse cursor inside hitbox
 					{
-						drawColor = Main.mouseTextColorReal;
+						drawColor = Main.MouseTextColorReal;
 						ret = petName;
 						break;
 					}
@@ -91,7 +94,7 @@ namespace PetRenamer.UI.MouseoverUI
 			if (Main.hoverItemName != string.Empty || drawString == string.Empty || Main.LocalPlayer.mouseInterface || Main.mouseText) return;
 			base.DrawSelf(spriteBatch);
 
-			Main.LocalPlayer.showItemIcon = false;
+			Main.LocalPlayer.cursorItemIconEnabled = false;
 			Vector2 mousePos = new Vector2(Main.mouseX, Main.mouseY);
 			mousePos.X += 10;
 			mousePos.Y += 10;
@@ -101,7 +104,8 @@ namespace PetRenamer.UI.MouseoverUI
 				mousePos.Y += 6;
 			}
 
-			Vector2 vector = Main.fontMouseText.MeasureString(drawString);
+			DynamicSpriteFont value = FontAssets.MouseText.Value;
+			Vector2 vector = value.MeasureString(drawString);
 
 			if (mousePos.X + vector.X + 4f > Main.screenWidth)
 			{
@@ -112,7 +116,7 @@ namespace PetRenamer.UI.MouseoverUI
 				mousePos.Y = (int)(Main.screenHeight - vector.Y - 4f);
 			}
 
-			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, drawString, mousePos, drawColor, 0, Vector2.Zero, Vector2.One);
+			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, value, drawString, mousePos, drawColor, 0, Vector2.Zero, Vector2.One);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +28,7 @@ namespace PetRenamer
 		{
 			if (PetRenamer.RenamePetUIHotkey.JustPressed)
 			{
-				PetRenamer.ToggleRenamePetUI();
+				PRUISystem.ToggleRenamePetUI();
 			}
 		}
 
@@ -67,7 +68,7 @@ namespace PetRenamer
 			UpdatePets();
 
 			//Only do the autocomplete in chat on the client
-			if (Main.netMode != NetmodeID.Server && Main.myPlayer == player.whoAmI)
+			if (Main.netMode != NetmodeID.Server && Main.myPlayer == Player.whoAmI)
 			{
 				Autocomplete();
 			}
@@ -81,8 +82,8 @@ namespace PetRenamer
 
 		private void SetTypeAndNameOfCurrentEquippedPetInSlot(int slot, ref int type, ref string name)
 		{
-			Item item = player.miscEquips[slot];
-			if (!player.hideMisc[slot] && PetRenamer.IsPetItem(item))
+			Item item = Player.miscEquips[slot];
+			if (!Player.hideMisc[slot] && PetRenamer.IsPetItem(item))
 			{
 				PRItem petItem = item.GetGlobalItem<PRItem>();
 				type = item.shoot;
@@ -102,7 +103,7 @@ namespace PetRenamer
 			{
 				if (!Main.chatText.StartsWith(PRCommand.CommandStart) && Main.chatText.Length == 0)
 				{
-					ChatManager.AddChatText(Main.fontMouseText, PRCommand.CommandStart, Vector2.One);
+					ChatManager.AddChatText(FontAssets.MouseText.Value, PRCommand.CommandStart, Vector2.One);
 				}
 			}
 

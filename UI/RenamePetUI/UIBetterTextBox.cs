@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using ReLogic.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
@@ -151,14 +152,15 @@ namespace PetRenamer.UI.RenamePetUI
 			CalculatedStyle space = GetDimensions();
 			Color color = Color.Black;
 			Vector2 drawPos = space.Position() + new Vector2(4, 2);
+			DynamicSpriteFont font = FontAssets.MouseText.Value;
 			if (currentString.Length == 0 && !focused)
 			{
 				color *= 0.5f;
-				spriteBatch.DrawString(Main.fontMouseText, hintText, drawPos, color);
+				spriteBatch.DrawString(font, hintText, drawPos, color);
 			}
 			else
 			{
-				spriteBatch.DrawString(Main.fontMouseText, displayString, drawPos, color);
+				spriteBatch.DrawString(font, displayString, drawPos, color);
 			}
 		}
 	}

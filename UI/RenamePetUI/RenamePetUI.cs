@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -96,7 +97,7 @@ namespace PetRenamer.UI.RenamePetUI
 
 			if (skipCheck || !uiItem.IsAir && itemSlot.Valid(uiItem))
 			{
-				if (uiItem.type != ModContent.ItemType<MysteryItem>())
+				if (uiItem.type != ModContent.ItemType<UnloadedItem>())
 				{
 					PRItem petItem = uiItem.GetGlobalItem<PRItem>();
 					name = petItem.petName;
@@ -180,7 +181,7 @@ namespace PetRenamer.UI.RenamePetUI
 			//Using initializer pattern here didn't work for some reason with the Width
 			quitButton.Top.Pixels = -PaddingTop / 2;
 			quitButton.Left.Pixels = width - PaddingRight - quitButton.Width.Pixels - 8;
-			quitButton.OnClick += (evt, element) => { PetRenamer.CloseRenamePetUI(); };
+			quitButton.OnClick += (evt, element) => { PRUISystem.CloseRenamePetUI(); };
 			Append(quitButton);
 		}
 
@@ -188,7 +189,7 @@ namespace PetRenamer.UI.RenamePetUI
 		public override void OnActivate()
 		{
 			base.OnActivate();
-			Main.PlaySound(SoundID.MenuOpen);
+			SoundEngine.PlaySound(SoundID.MenuOpen);
 		}
 
 		//Called when this.Deactivate() is called, aka when SetState is called with null
@@ -197,7 +198,7 @@ namespace PetRenamer.UI.RenamePetUI
 			base.OnDeactivate();
 			if (!saveItemInUI && !Main.gameMenu)
 			{
-				Main.PlaySound(SoundID.MenuClose);
+				SoundEngine.PlaySound(SoundID.MenuClose);
 			}
 
 			Item item = itemSlot.Item;
@@ -241,7 +242,7 @@ namespace PetRenamer.UI.RenamePetUI
 				PRItem petItem = item.GetGlobalItem<PRItem>();
 				petItem.petName = commandInput.currentString;
 				petItem.petOwner = Main.LocalPlayer.name;
-				Main.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.MenuTick);
 			}
 		}
 
@@ -256,7 +257,7 @@ namespace PetRenamer.UI.RenamePetUI
 			if (ContainsPoint(Main.MouseScreen))
 			{
 				Main.LocalPlayer.mouseInterface = true;
-				Main.LocalPlayer.showItemIcon = false;
+				Main.LocalPlayer.cursorItemIconEnabled = false;
 				Main.ItemIconCacheUpdate(0);
 			}
 			base.DrawSelf(spriteBatch);
@@ -266,7 +267,7 @@ namespace PetRenamer.UI.RenamePetUI
 		{
 			if (commandInput.currentString.Length > 0)
 			{
-				Main.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.MenuTick);
 			}
 			commandInput.SetText("");
 		}
@@ -297,7 +298,7 @@ namespace PetRenamer.UI.RenamePetUI
 						}
 					}
 				}
-				Main.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.MenuTick);
 				commandInput.SetText(fullText);
 			}
 		}
