@@ -18,6 +18,7 @@ namespace PetRenamer.UI.MouseoverUI
 		private string GetPetName()
 		{
 			string ret = string.Empty;
+			Player player;
 			PRPlayer petPlayer;
 			string petName;
 			Rectangle mouse = new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 1, 1);
@@ -27,7 +28,13 @@ namespace PetRenamer.UI.MouseoverUI
 				Projectile proj = Main.projectile[k];
 				if (proj.active && proj.owner < Main.maxPlayers)
 				{
-					petPlayer = Main.player[proj.owner].GetModPlayer<PRPlayer>();
+					player = Main.player[proj.owner];
+					if (!player.active)
+					{
+						continue;
+					}
+
+					petPlayer = player.GetModPlayer<PRPlayer>();
 					if (proj.type == petPlayer.petTypeLight)
 					{
 						petName = petPlayer.petNameLight;

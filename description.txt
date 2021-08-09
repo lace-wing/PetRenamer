@@ -8,7 +8,11 @@ For instructions on both, visit the homepage
 
 Changelog:
 
+v1.2.0.X: ported fixes between v1.1.2 and v1.2
+
 v1.2: tml for 1.4 update
+
+v1.1.2.1: Possibly fix rare bug with mouseovering a pet in multiplayer
 
 v1.1.2: Add a config + setting for disabling the chat autofill feature
 
