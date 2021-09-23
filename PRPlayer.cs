@@ -44,17 +44,15 @@ namespace PetRenamer
 			prevItemType = 0;
 		}
 
-		public override TagCompound Save()
+		public override void SaveData(TagCompound tag)
 		{
-			TagCompound tag = new TagCompound();
 			if (!renamePetUIItem.IsAir)
 			{
 				tag.Add("renamePetUIItem", renamePetUIItem);
 			}
-			return tag.Count > 0 ? tag : null;
 		}
 
-		public override void Load(TagCompound tag)
+		public override void LoadData(TagCompound tag)
 		{
 			renamePetUIItem = tag.Get<Item>("renamePetUIItem");
 			if (renamePetUIItem == null)

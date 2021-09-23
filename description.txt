@@ -8,7 +8,9 @@ For instructions on both, visit the homepage
 
 Changelog:
 
-v1.2.0.X: ported fixes between v1.1.2 and v1.2
+v1.2.0.2: Fix bug due to tml update
+
+v1.2.0.1: ported fixes between v1.1.2 and v1.2
 
 v1.2: tml for 1.4 update
 

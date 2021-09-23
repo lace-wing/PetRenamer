@@ -44,24 +44,21 @@ namespace PetRenamer
 			}
 		}
 
-		public override void Load(Item item, TagCompound tag)
+		public override void LoadData(Item item, TagCompound tag)
 		{
 			petName = tag.GetString("petName");
 			petOwner = tag.GetString("petOwner");
 		}
 
-		public override bool NeedsSaving(Item item)
+		public override void SaveData(Item item, TagCompound tag)
 		{
-			return petName.Length > 0 && PetRenamer.IsPetItem(item);
-		}
-
-		public override TagCompound Save(Item item)
-		{
-			return new TagCompound
+			if (!(petName.Length > 0 && PetRenamer.IsPetItem(item)))
 			{
-				{"petName", petName},
-				{"petOwner", petOwner},
-			};
+				return;
+			}
+
+			tag.Add("petName", petName);
+			tag.Add("petOwner", petOwner);
 		}
 
 		public override void NetSend(Item item, BinaryWriter writer)
