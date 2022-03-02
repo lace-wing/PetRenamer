@@ -8,7 +8,7 @@ For instructions on both, visit the homepage
 
 Changelog:
 
-v1.2.0.2/3: Fixed bugs due to tml updates
+v1.2.0.2/3/4: Fixed bugs due to tml updates
 
 v1.2.0.1: ported fixes between v1.1.2 and v1.2
 

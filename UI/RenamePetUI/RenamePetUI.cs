@@ -201,13 +201,14 @@ namespace PetRenamer.UI.RenamePetUI
 				SoundEngine.PlaySound(SoundID.MenuClose);
 			}
 
+			Player player = Main.LocalPlayer;
 			Item item = itemSlot.Item;
 			if (saveItemInUI)
 			{
 				saveItemInUI = false;
 				if (!item.IsAir)
 				{
-					Main.LocalPlayer.GetModPlayer<PRPlayer>().renamePetUIItem = item.Clone();
+					player.GetModPlayer<PRPlayer>().renamePetUIItem = item.Clone();
 					//Save item for next time the player uses the UI
 				}
 			}
@@ -216,7 +217,8 @@ namespace PetRenamer.UI.RenamePetUI
 				//Give item back to player
 				if (!item.IsAir)
 				{
-					Main.LocalPlayer.QuickSpawnClonedItem(item, item.stack);
+					var source = player.GetItemSource_OpenItem(item.type);
+					player.QuickSpawnClonedItem(source, item, item.stack);
 				}
 			}
 		}
