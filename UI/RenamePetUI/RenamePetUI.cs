@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -19,6 +20,7 @@ namespace PetRenamer.UI.RenamePetUI
 		private UIPanel applyButton;
 		private UIPanel randomizeButton;
 		private UIPanel clearButton;
+		private List<UIPanel> panels;
 		private VanillaItemSlotWrapper itemSlot;
 
 		private readonly static Color bgColor = new Color(73, 94, 171);
@@ -42,6 +44,8 @@ namespace PetRenamer.UI.RenamePetUI
 			Height.Pixels = height;
 			Top.Pixels = int.MaxValue / 2;
 			Left.Pixels = int.MaxValue / 2;
+
+			panels = new List<UIPanel>();
 
 			float nextElementY = -PaddingTop / 2;
 
@@ -140,6 +144,7 @@ namespace PetRenamer.UI.RenamePetUI
 			};
 			applyButton.Append(applyButonText);
 			Append(applyButton);
+			panels.Add(applyButton);
 
 			randomizeButton = new UIPanel()
 			{
@@ -158,6 +163,7 @@ namespace PetRenamer.UI.RenamePetUI
 			};
 			randomizeButton.Append(randomizeButtonText);
 			Append(randomizeButton);
+			panels.Add(randomizeButton);
 
 			clearButton = new UIPanel()
 			{
@@ -176,6 +182,7 @@ namespace PetRenamer.UI.RenamePetUI
 			};
 			clearButton.Append(clearButtonText);
 			Append(clearButton);
+			panels.Add(clearButton);
 
 			UIQuitButton quitButton = new UIQuitButton("Close");
 			//Using initializer pattern here didn't work for some reason with the Width
@@ -231,9 +238,10 @@ namespace PetRenamer.UI.RenamePetUI
 			Left.Pixels = RelativeLeft;
 			Top.Pixels = RelativeTop;
 
-			applyButton.BackgroundColor = applyButton.IsMouseHovering ? hoverColor : bgColor;
-			randomizeButton.BackgroundColor = randomizeButton.IsMouseHovering ? hoverColor : bgColor;
-			clearButton.BackgroundColor = clearButton.IsMouseHovering ? hoverColor : bgColor;
+			foreach (var panel in panels)
+			{
+				panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+			}
 		}
 
 		private void ApplyNameToItem()
