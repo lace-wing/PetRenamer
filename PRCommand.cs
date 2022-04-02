@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -64,6 +65,11 @@ namespace PetRenamer
 						else
 						{
 							caller.Reply("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
+						}
+
+						if (previousName != petItem.petName)
+						{
+							SoundEngine.PlaySound(SoundID.ResearchComplete);
 						}
 					}
 				}

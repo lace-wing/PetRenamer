@@ -35,11 +35,11 @@ namespace PetRenamer
 				Color color = Color.Lerp(Color.White, Color.Orange, 0.4f);
 				tooltips.Add(new TooltipLine(Mod, "PetName", "Pet Name: " + petName)
 				{
-					overrideColor = color
+					OverrideColor = color
 				});
 				tooltips.Add(new TooltipLine(Mod, "PetOwner", "Owner: " + petOwner)
 				{
-					overrideColor = color
+					OverrideColor = color
 				});
 			}
 		}

@@ -250,9 +250,18 @@ namespace PetRenamer.UI.RenamePetUI
 			if (!item.IsAir && itemSlot.Valid(item))
 			{
 				PRItem petItem = item.GetGlobalItem<PRItem>();
+				var oldName = petItem.petName;
 				petItem.petName = commandInput.currentString;
 				petItem.petOwner = Main.LocalPlayer.name;
-				SoundEngine.PlaySound(SoundID.MenuTick);
+
+				if (oldName != petItem.petName)
+				{
+					SoundEngine.PlaySound(SoundID.ResearchComplete);
+				}
+				else
+				{
+					SoundEngine.PlaySound(SoundID.MenuTick);
+				}
 			}
 		}
 
