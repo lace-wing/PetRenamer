@@ -64,6 +64,12 @@ Credits:
 
 Changelog:
 
+v1.2.0.6: Fixed bug due to tml updates
+
+v1.2.0.5: Fixed bugs due to tml updates
+
+v1.2.0.2/3/4: Fixed bugs due to tml updates
+
 v1.2.0.X: ported fixes between v1.1.2 and v1.2
 
 v1.2: tml for 1.4 update

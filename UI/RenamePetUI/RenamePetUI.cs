@@ -224,7 +224,7 @@ namespace PetRenamer.UI.RenamePetUI
 				//Give item back to player
 				if (!item.IsAir)
 				{
-					var source = player.GetItemSource_OpenItem(item.type);
+					var source = player.GetSource_Misc("PlayerDropItemCheck");
 					player.QuickSpawnClonedItem(source, item, item.stack);
 				}
 			}
