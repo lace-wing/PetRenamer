@@ -1,7 +1,7 @@
 Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
 There are two ways to use this mod:
-1. UI accessed via hotkey ('P')
+1. UI accessed via hotkey ('P', bind it yourself in the settings)
 2. Chat command ('/renamepet')
 
 For instructions on both, visit the homepage
