@@ -8,6 +8,8 @@ For instructions on both, visit the homepage
 
 Changelog:
 
+v1.2.0.7: Added workshop tags
+
 v1.2.0.6: Fixed bug due to tml updates
 
 v1.2.0.5: Fixed bugs due to tml updates
