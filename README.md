@@ -29,6 +29,8 @@ Demonstration:
 
 ![UI](https://raw.githubusercontent.com/direwolf420/PetRenamer/1.4/Images/ui.png)
 
+![petnameselectscreen](https://raw.githubusercontent.com/direwolf420/PetRenamer/1.4/Images/petnameselectscreen.png)
+
 [Showcase (gfycat video)](https://gfycat.com/totalformalindochinesetiger)
 
 ## Chat Command
