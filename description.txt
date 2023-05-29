@@ -1,37 +1,12 @@
 Allows the player to name the summon item of any pet, so that the pet will show its name when hovered over it (similar to how NPCs show their name)
 
 There are two ways to use this mod:
-1. UI accessed via hotkey ('P')
+1. UI accessed via hotkey ('P', bind it yourself in the settings)
 2. Chat command ('/renamepet')
 
 For instructions on both, visit the homepage
 
-Changelog:
-
-v1.2.0.2/3/4: Fixed bugs due to tml updates
-
-v1.2.0.1: ported fixes between v1.1.2 and v1.2
-
-v1.2: tml for 1.4 update
-
-v1.1.2.1: Possibly fix rare bug with mouseovering a pet in multiplayer
-
-v1.1.2: Add a config + setting for disabling the chat autofill feature
-
-v1.1.1.2: Fix rare bug with mouseovering a pet in multiplayer
-
-v1.1.1.1: When opening the UI and the mouse item slots in, the text field now auto-focuses
-
-v1.1.1: Using the UI allows you to randomize the name, over 10 million possible names
-
-v1.1: An additional way to rename a pet through a UI accessed via hotkey
-
-v1.0.0.5: tml 0.11.7 update
-
-v1.0.0.4: tml 0.11 update, command says the correct thing now when not holding a pet item
-
-v1.0.0.3: Buff tip of the summoned pet now also displays its name
-
-v1.0.0.2: Narrowed down detection of pet summoning items, if you had any previous items set to a name that weren't a pet, they will be reset upon game quit
-
-v1.0 and 1.0.0.1: Initial release and added icon
+Localization:
+If you want to add support for different languages, you are welcome to contribute localizations here: https://github.com/direwolf420/PetRenamer
+List of localization contributors:
+* None!

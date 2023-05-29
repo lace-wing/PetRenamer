@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace PetRenamer
@@ -22,7 +24,29 @@ namespace PetRenamer
 
 		public override string Usage => "/" + COMMANDNAME + " " + ARGUMENT;
 
-		public override string Description => "Set a name or rename the pet item in your mouse. " + ARGUMENT + " = " + RESET + " -> remove name";
+		public override string Description => DescriptionText.ToString();
+
+		public static LocalizedText DescriptionText { get; private set; }
+		public static LocalizedText NicknameResetText { get; private set; }
+		public static LocalizedText NamedNewText { get; private set; }
+		public static LocalizedText NamedSameText { get; private set; }
+		public static LocalizedText RenamedText { get; private set; }
+
+		public static LocalizedText NoItemText { get; private set; }
+		public static LocalizedText InvalidItemText { get; private set; }
+
+		public override void Load()
+		{
+			string category = $"Commands.PRCommand.";
+			DescriptionText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}Description")).WithFormatArgs(ARGUMENT, RESET);
+			NicknameResetText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}NicknameReset"));
+			NamedNewText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}NamedNew"));
+			NamedSameText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}NamedSame"));
+			RenamedText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}Renamed"));
+
+			NoItemText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}NoItem"));
+			InvalidItemText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}InvalidItem"));
+		}
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
@@ -31,23 +55,16 @@ namespace PetRenamer
 			{
 				Item item = Main.mouseItem;
 
-				if (PetRenamer.IsPetItem(item))
+				if (item.TryGetGlobalItem(out PRItem petItem))
 				{
-					PRItem petItem = item.GetGlobalItem<PRItem>();
-
 					string previousName = petItem.petName;
-					string newName = "";
-
-					for (int i = 0; i < args.Length; i++)
-					{
-						newName += args[i] + ((i != args.Length - 1) ? " " : "");
-					}
+					string newName = string.Join(" ", args);
 
 					if (previousName != string.Empty && newName == RESET)
 					{
 						petItem.petName = string.Empty;
 						petItem.petOwner = string.Empty;
-						caller.Reply("Nickname '" + previousName + "' reset", Color.OrangeRed);
+						caller.Reply(NicknameResetText.Format(previousName), Color.OrangeRed);
 					}
 					else
 					{
@@ -55,15 +72,20 @@ namespace PetRenamer
 						petItem.petOwner = caller.Player.name;
 						if (previousName == string.Empty)
 						{
-							caller.Reply("Named the pet summoned by " + item.Name + " '" + petItem.petName + "'", Color.Orange);
+							caller.Reply(NamedNewText.Format(item.Name, petItem.petName), Color.Orange);
 						}
 						else if (previousName == petItem.petName)
 						{
-							caller.Reply("Pet is already called '" + previousName + "'", Color.OrangeRed);
+							caller.Reply(NamedSameText.Format(previousName), Color.OrangeRed);
 						}
 						else
 						{
-							caller.Reply("Renamed the pet summoned by " + item.Name + " from '" + previousName + "' to '" + petItem.petName + "'", Color.Orange);
+							caller.Reply(RenamedText.Format(item.Name, previousName, petItem.petName), Color.Orange);
+						}
+
+						if (previousName != petItem.petName)
+						{
+							SoundEngine.PlaySound(SoundID.ResearchComplete);
 						}
 					}
 				}
@@ -71,11 +93,11 @@ namespace PetRenamer
 				{
 					if (item.type == ItemID.None)
 					{
-						caller.Reply("No item to rename! Hold a pet summon item in your cursor", Color.OrangeRed);
+						caller.Reply(NoItemText.ToString(), Color.OrangeRed);
 					}
 					else
 					{
-						caller.Reply(item.Name + " is not a valid item!", Color.OrangeRed);
+						caller.Reply(InvalidItemText.Format(item.Name), Color.OrangeRed);
 					}
 				}
 			}

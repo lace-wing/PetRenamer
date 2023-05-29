@@ -81,9 +81,8 @@ namespace PetRenamer
 		private void SetTypeAndNameOfCurrentEquippedPetInSlot(int slot, ref int type, ref string name)
 		{
 			Item item = Player.miscEquips[slot];
-			if (!Player.hideMisc[slot] && PetRenamer.IsPetItem(item))
+			if (!Player.hideMisc[slot] && item.TryGetGlobalItem(out PRItem petItem))
 			{
-				PRItem petItem = item.GetGlobalItem<PRItem>();
 				type = item.shoot;
 				name = petItem.petName;
 			}

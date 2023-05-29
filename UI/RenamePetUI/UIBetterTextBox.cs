@@ -46,10 +46,10 @@ namespace PetRenamer.UI.RenamePetUI
 			BorderColor = Color.Black;
 		}
 
-		public override void Click(UIMouseEvent evt)
+		public override void LeftClick(UIMouseEvent evt)
 		{
 			Focus();
-			base.Click(evt);
+			base.LeftClick(evt);
 		}
 
 		internal void Unfocus()
