@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -9,13 +10,28 @@ namespace PetRenamer
 {
 	public class PRItem : GlobalItem
 	{
+		public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+		{
+			return lateInstantiation && PetRenamer.IsPetItem(entity);
+		}
+
+		public static LocalizedText PetNameText { get; private set; }
+		public static LocalizedText PetOwnerText { get; private set; }
+
+		public override void Load()
+		{
+			string category = $"Items.PetItems.";
+			PetNameText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}PetName"));
+			PetOwnerText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}PetOwner"));
+		}
+
 		public string petName;
 		public string petOwner;
 
 		public PRItem()
 		{
-			petName = "";
-			petOwner = "";
+			petName = string.Empty;
+			petOwner = string.Empty;
 		}
 
 		public override bool InstancePerEntity => true;
@@ -33,11 +49,11 @@ namespace PetRenamer
 			if (petName.Length > 0)
 			{
 				Color color = Color.Lerp(Color.White, Color.Orange, 0.4f);
-				tooltips.Add(new TooltipLine(Mod, "PetName", "Pet Name: " + petName)
+				tooltips.Add(new TooltipLine(Mod, "PetName", PetNameText.Format(petName))
 				{
 					OverrideColor = color
 				});
-				tooltips.Add(new TooltipLine(Mod, "PetOwner", "Owner: " + petOwner)
+				tooltips.Add(new TooltipLine(Mod, "PetOwner", PetOwnerText.Format(petOwner))
 				{
 					OverrideColor = color
 				});
@@ -52,7 +68,7 @@ namespace PetRenamer
 
 		public override void SaveData(Item item, TagCompound tag)
 		{
-			if (!(petName.Length > 0 && PetRenamer.IsPetItem(item)))
+			if (petName.Length == 0)
 			{
 				return;
 			}

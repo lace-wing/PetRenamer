@@ -1,0 +1,61 @@
+Mods: {
+	PetRenamer: {
+		Keybinds.RenamePet.DisplayName: Rename Pet
+
+		Configs: {
+			Config: {
+				DisplayName: Config
+
+				EnableChatAutofill: {
+					Label: Enable Chat Autofill
+					Tooltip: If chat should autofill the command automatically when a pet item is selected
+				}
+			}
+		}
+
+		Commands: {
+			PRCommand: {
+				Description: Set a name or rename the pet item in your mouse. {0} = {1} -> remove name
+				NicknameReset: Nickname '{0}' reset
+				NamedNew: Named the pet summoned by {0} '{1}'
+				NamedSame: Pet is already called '{0}'
+				Renamed: Renamed the pet summoned by {0} from '{1}' to '{2}'
+				NoItem: No item to rename! Hold a pet summon item in your cursor
+				InvalidItem: "{0} is not a valid item!"
+			}
+		}
+
+		Buffs.PetBuff.Name: Name: {0}
+
+		Items: {
+			PetItems: {
+				PetName: Pet Name: {0}
+				PetOwner: Owner: {0}
+			}
+		}
+
+		UI: {
+			RenamePetUI: {
+				Title: Rename Pet
+				SlotMouseover: Place a pet summoning item here
+				SlotMouseoverSlow:
+					'''
+					1. Place a pet summoning item here
+					2. Type a name into the text box
+					2. (optional) Press 'Clear' to delete the text
+					2. (optional) Press 'Random' for a random name
+					3. Press 'Apply' to set the text from the text box as the name for the pet
+					3. (optional) Take out the item
+					4. Press 'X' to close. Item will be returned to you if it's still in the UI
+					Note: If you leave the UI with the item in it open and close the game, it will appear again next time you play
+					'''
+				SlotMouseoverVerySlowEasterEgg: Santa isn't real
+				Input: Enter Name Here
+				ApplyButton: Apply
+				RandomButton: Random
+				ClearButton: Clear
+				CloseButton: Close
+			}
+		}
+	}
+}

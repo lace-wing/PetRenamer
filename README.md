@@ -1,6 +1,6 @@
 # PetRenamer
 
-![Icon](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/icon.png)
+![Icon](https://raw.githubusercontent.com/direwolf420/PetRenamer/1.4/icon.png)
 
 Terraria Forum link: https://forums.terraria.org/index.php?threads/pet-renamer-allows-you-to-name-your-pets.79293/
 
@@ -27,7 +27,7 @@ Notes:
 
 Demonstration:
 
-![UI](https://raw.githubusercontent.com/direwolf420/PetRenamer/master/Images/ui.png)
+![UI](https://raw.githubusercontent.com/direwolf420/PetRenamer/1.4/Images/ui.png)
 
 [Showcase (gfycat video)](https://gfycat.com/totalformalindochinesetiger)
 
@@ -62,32 +62,10 @@ Credits:
 * jopojelly for UI
 * darthmorf for UI help
 
-Changelog:
+## Localization
+If you wish to contribute translations, visit the [tML wiki page](https://github.com/tModLoader/tModLoader/wiki/Localization) on that.
+This mod uses `.hjson` files in the `Localization` folder.
+Translate things that are in english and commented out (either via `//` or `/* */`, remove the comment markers after translating)
 
-v1.2.0.2-8: Fixed bugs due to tml updates
-
-v1.2.0.X: ported fixes between v1.1.2 and v1.2
-
-v1.2: tml for 1.4 update
-
-v1.1.2.1: Possibly fix rare bug with mouseovering a pet in multiplayer
-
-v1.1.2: Add a config + setting for disabling the chat autofill feature
-
-v1.1.1.2: Fix rare bug with mouseovering a pet in multiplayer
-
-v1.1.1.1: When opening the UI and the mouse item slots in, the text field now auto-focuses
-
-v1.1.1: Using the UI allows you to randomize the name, over 10 million possible names
-
-v1.1: An additional way to rename a pet through a UI accessed via hotkey
-
-v1.0.0.5: tml 0.11.7 update
-
-v1.0.0.4: tml 0.11 update, command says the correct thing now when not holding a pet item
-
-v1.0.0.3: Buff tip of the summoned pet now also displays its name
-
-v1.0.0.2: Narrowed down detection of pet summoning items, if you had any previous items set to a name that weren't a pet, they will be reset upon game quit
-
-v1.0 and v1.0.0.1: Initial release and added icon
+List of localization contributors:
+* None!

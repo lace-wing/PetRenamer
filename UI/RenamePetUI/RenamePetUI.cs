@@ -6,8 +6,8 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Default;
 using Terraria.UI;
 
 namespace PetRenamer.UI.RenamePetUI
@@ -35,8 +35,39 @@ namespace PetRenamer.UI.RenamePetUI
 
 		internal bool firstDraw = true;
 
+		internal static LocalizedText TitleText { get; private set; }
+		internal static LocalizedText SlotMouseoverText { get; private set; }
+		internal static LocalizedText SlotMouseoverSlowText { get; private set; }
+		internal static LocalizedText SlotMouseoverVerySlowEasterEggText { get; private set; }
+
+		internal static LocalizedText InputText { get; private set; }
+		internal static LocalizedText ApplyButtonText { get; private set; }
+		internal static LocalizedText RandomButtonText { get; private set; }
+		internal static LocalizedText ClearButtonText { get; private set; }
+		internal static LocalizedText CloseButtonText { get; private set; }
+
 		//Used to notify the UI to save the item instead of dropping it
 		internal static bool saveItemInUI = false;
+
+		internal static void LoadLocalization(Mod mod)
+		{
+			TitleText ??= GetLocalization(mod, "Title");
+			SlotMouseoverText ??= GetLocalization(mod, "SlotMouseover");
+			SlotMouseoverSlowText ??= GetLocalization(mod, "SlotMouseoverSlow");
+			SlotMouseoverVerySlowEasterEggText ??= GetLocalization(mod, "SlotMouseoverVerySlowEasterEgg");
+
+			InputText ??= GetLocalization(mod, "Input");
+			ApplyButtonText ??= GetLocalization(mod, "ApplyButton");
+			RandomButtonText ??= GetLocalization(mod, "RandomButton");
+			ClearButtonText ??= GetLocalization(mod, "ClearButton");
+			CloseButtonText ??= GetLocalization(mod, "CloseButton");
+		}
+
+		private static LocalizedText GetLocalization(Mod mod, string name)
+		{
+			string category = $"UI.RenamePetUI.";
+			return Language.GetOrRegister(mod.GetLocalizationKey($"{category}{name}"));
+		}
 
 		public override void OnInitialize()
 		{
@@ -49,7 +80,7 @@ namespace PetRenamer.UI.RenamePetUI
 
 			float nextElementY = -PaddingTop / 2;
 
-			titleText = new UIText("Rename Pet")
+			titleText = new UIText(TitleText.ToString())
 			{
 				Top = { Pixels = nextElementY },
 				HAlign = 0.5f
@@ -68,21 +99,14 @@ namespace PetRenamer.UI.RenamePetUI
 			};
 			itemSlot.OnEmptyMouseover += (timer) =>
 			{
-				Main.hoverItemName = "Place a pet summoning item here";
+				Main.hoverItemName = SlotMouseoverText.ToString();
 				if (timer > 60)
 				{
-					Main.hoverItemName = "1. Place a pet summoning item here"
-				+ "\n2. Type a name into the text box"
-				+ "\n2. (optional) Press 'Clear' to delete the text"
-				+ "\n2. (optional) Press 'Random' for a random name"
-				+ "\n3. Press 'Apply' to set the text from the text box as the name for the pet"
-				+ "\n3. (optional) Take out the item"
-				+ "\n4. Press 'X' to close. Item will be returned to you if it's still in the UI"
-				+ "\nNote: If you leave the UI with the item in it open and close the game, it will appear again next time you play";
+					Main.hoverItemName = SlotMouseoverSlowText.ToString();
 				}
 				else if (timer > 3600)
 				{
-					Main.hoverItemName = "Santa isn't real";
+					Main.hoverItemName = SlotMouseoverVerySlowEasterEggText.ToString();
 				}
 			};
 			Append(itemSlot);
@@ -101,16 +125,15 @@ namespace PetRenamer.UI.RenamePetUI
 
 			if (skipCheck || !uiItem.IsAir && itemSlot.Valid(uiItem))
 			{
-				if (uiItem.type != ModContent.ItemType<UnloadedItem>())
+				if (uiItem.TryGetGlobalItem(out PRItem petItem))
 				{
-					PRItem petItem = uiItem.GetGlobalItem<PRItem>();
 					name = petItem.petName;
 				}
 				itemSlot.Item = uiItem.Clone();
 				uiItem.TurnToAir(); //The previous item reference (mouse item or saved item) gets cleared
 			}
 
-			commandInput = new UIBetterTextBox("Enter Name Here", name)
+			commandInput = new UIBetterTextBox(InputText.ToString(), name)
 			{
 				BackgroundColor = Color.White,
 				Top = { Pixels = nextElementY },
@@ -135,14 +158,14 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f - ratioFromCenter,
 				BackgroundColor = bgColor
 			};
-			applyButton.OnClick += (evt, element) => { ApplyNameToItem(); };
+			applyButton.OnLeftClick += (evt, element) => { ApplyNameToItem(); };
 
-			UIText applyButonText = new UIText("Apply")
+			UIText applyButtonText = new UIText(ApplyButtonText.ToString())
 			{
 				Top = { Pixels = -4f },
 				Left = { Pixels = -2f }
 			};
-			applyButton.Append(applyButonText);
+			applyButton.Append(applyButtonText);
 			Append(applyButton);
 			panels.Add(applyButton);
 
@@ -154,9 +177,9 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f,
 				BackgroundColor = bgColor
 			};
-			randomizeButton.OnClick += (evt, element) => { RandomizeText(); };
+			randomizeButton.OnLeftClick += (evt, element) => { RandomizeText(); };
 
-			UIText randomizeButtonText = new UIText("Random")
+			UIText randomizeButtonText = new UIText(RandomButtonText.ToString())
 			{
 				Top = { Pixels = -4f },
 				Left = { Pixels = -2f }
@@ -173,9 +196,9 @@ namespace PetRenamer.UI.RenamePetUI
 				HAlign = 0.5f + ratioFromCenter,
 				BackgroundColor = bgColor
 			};
-			clearButton.OnClick += (evt, element) => { ClearTextField(); };
+			clearButton.OnLeftClick += (evt, element) => { ClearTextField(); };
 
-			UIText clearButtonText = new UIText("Clear")
+			UIText clearButtonText = new UIText(ClearButtonText.ToString())
 			{
 				Top = { Pixels = -4f },
 				Left = { Pixels = -2f }
@@ -184,11 +207,11 @@ namespace PetRenamer.UI.RenamePetUI
 			Append(clearButton);
 			panels.Add(clearButton);
 
-			UIQuitButton quitButton = new UIQuitButton("Close");
+			UIQuitButton quitButton = new UIQuitButton(CloseButtonText.ToString());
 			//Using initializer pattern here didn't work for some reason with the Width
 			quitButton.Top.Pixels = -PaddingTop / 2;
 			quitButton.Left.Pixels = width - PaddingRight - quitButton.Width.Pixels - 8;
-			quitButton.OnClick += (evt, element) => { PRUISystem.CloseRenamePetUI(); };
+			quitButton.OnLeftClick += (evt, element) => { PRUISystem.CloseRenamePetUI(); };
 			Append(quitButton);
 		}
 
@@ -224,8 +247,9 @@ namespace PetRenamer.UI.RenamePetUI
 				//Give item back to player
 				if (!item.IsAir)
 				{
+					//TODO entity source PR
 					var source = player.GetSource_Misc("PlayerDropItemCheck");
-					player.QuickSpawnClonedItem(source, item, item.stack);
+					player.QuickSpawnItem(source, item, item.stack);
 				}
 			}
 		}
@@ -247,9 +271,8 @@ namespace PetRenamer.UI.RenamePetUI
 		private void ApplyNameToItem()
 		{
 			Item item = itemSlot.Item;
-			if (!item.IsAir && itemSlot.Valid(item))
+			if (!item.IsAir && itemSlot.Valid(item) && item.TryGetGlobalItem(out PRItem petItem))
 			{
-				PRItem petItem = item.GetGlobalItem<PRItem>();
 				var oldName = petItem.petName;
 				petItem.petName = commandInput.currentString;
 				petItem.petOwner = Main.LocalPlayer.name;
@@ -288,11 +311,12 @@ namespace PetRenamer.UI.RenamePetUI
 			{
 				SoundEngine.PlaySound(SoundID.MenuTick);
 			}
-			commandInput.SetText("");
+			commandInput.SetText(string.Empty);
 		}
 
 		private void RandomizeText()
 		{
+			//Does not need to be translated
 			if (PetRenamer.randomNames != null)
 			{
 				string name = Main.rand.Next(PetRenamer.randomNames);

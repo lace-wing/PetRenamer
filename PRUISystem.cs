@@ -1,21 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PetRenamer.UI.MouseoverUI;
 using PetRenamer.UI.RenamePetUI;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Terraria;
-using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace PetRenamer
 {
+	[Autoload(Side = ModSide.Client)]
 	public class PRUISystem : ModSystem
 	{
-
 		internal static UserInterface petRenameInterface;
 
 		internal static UserInterface mouseoverUIInterface;
@@ -25,28 +21,24 @@ namespace PetRenamer
 
 		public override void OnModLoad()
 		{
-			if (!Main.dedServ)
-			{
-				petRenameInterface = new UserInterface();
+			petRenameInterface = new UserInterface();
 
-				mouseoverUI = new MouseoverUI();
-				mouseoverUI.Activate();
-				mouseoverUIInterface = new UserInterface();
-				mouseoverUIInterface.SetState(mouseoverUI);
-			}
+			mouseoverUI = new MouseoverUI();
+			mouseoverUI.Activate();
+			mouseoverUIInterface = new UserInterface();
+			mouseoverUIInterface.SetState(mouseoverUI);
+
+			RenamePetUI.LoadLocalization(Mod);
 		}
 
 		public override void Unload()
 		{
-			if (!Main.dedServ)
-			{
-				petRenameInterface = null;
+			petRenameInterface = null;
 
-				mouseoverUIInterface = null;
-				mouseoverUI = null;
+			mouseoverUIInterface = null;
+			mouseoverUI = null;
 
-				UIQuitButton.asset = null;
-			}
+			UIQuitButton.asset = null;
 		}
 
 		internal static void ToggleRenamePetUI()

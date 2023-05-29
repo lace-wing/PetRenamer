@@ -63,7 +63,7 @@ namespace PetRenamer
 
 		public override void Load()
 		{
-			RenamePetUIHotkey = KeybindLoader.RegisterKeybind(this, "Rename Pet", "P");
+			RenamePetUIHotkey = KeybindLoader.RegisterKeybind(this, "RenamePet", "P");
 			if (!Main.dedServ)
 			{
 				randomNames = GetArrayFromJson("names");
@@ -86,7 +86,7 @@ namespace PetRenamer
 		public override void PostSetupContent()
 		{
 			List<int> tempList = new List<int>();
-			for (int i = Main.maxProjectileTypes; i < ProjectileLoader.ProjectileCount; i++)
+			for (int i = ProjectileID.Count; i < ProjectileLoader.ProjectileCount; i++)
 			{
 				ModProjectile mProj = ProjectileLoader.GetProjectile(i);
 				if (mProj != null && mProj.Mod.Name == "AssortedCrazyThings" && mProj.GetType().Name.StartsWith("CuteSlime"))
