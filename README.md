@@ -46,7 +46,6 @@ Notes:
 * Compatible with most modded pets if they do it the vanilla way:
     * If a summon item happens to summon multiple different pets at once, only one of them will be named
     * If the pet name hover text only shows up in a specific position, contact that other mods dev so he can fix the pets hitbox
-    * (For example some Thorium Mod pets only show a name when hovered over the top left corner of the sprite)
 
 Example:
 
