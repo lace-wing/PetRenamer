@@ -2,9 +2,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.IO;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace PetRenamer
@@ -21,6 +25,8 @@ namespace PetRenamer
 		internal static string[] randomNames;
 
 		internal static string[] randomAdjectives;
+
+		public static LocalizedText PetNameInSelectScreenText { get; private set; }
 
 		internal static bool IsPetItem(Item item)
 		{
@@ -68,6 +74,37 @@ namespace PetRenamer
 			{
 				randomNames = GetArrayFromJson("names");
 				randomAdjectives = GetArrayFromJson("adjectives");
+			}
+
+			string category = $"PlayerSelectScreenUI.";
+			PetNameInSelectScreenText ??= Language.GetOrRegister(this.GetLocalizationKey($"{category}PetNameInSelectScreen"));
+
+			if (Config.Instance.ShowPetNameInSelectScreen)
+			{
+				On_UICharacterListItem.DrawSelf += On_UICharacterListItem_DrawSelf;
+			}
+		}
+
+		private static void On_UICharacterListItem_DrawSelf(On_UICharacterListItem.orig_DrawSelf orig, UICharacterListItem self, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+		{
+			//private PlayerFileData _data;
+			FieldInfo dataField = typeof(UICharacterListItem).GetField("_data", BindingFlags.Instance | BindingFlags.NonPublic);
+			var data = (PlayerFileData)dataField.GetValue(self);
+
+			var player = data.Player;
+			bool addedPetName = false;
+			string origName = data.Name;
+			if (!player.hideMisc[VANITY_PET] && player.miscEquips[VANITY_PET].TryGetGlobalItem(out PRItem petItem) && petItem.petName != string.Empty)
+			{
+				addedPetName = true;
+				data.Name = PetNameInSelectScreenText.Format(data.Name, petItem.petName);
+			}
+
+			orig(self, spriteBatch);
+
+			if (addedPetName)
+			{
+				data.Name = origName;
 			}
 		}
 

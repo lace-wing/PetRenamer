@@ -1,2 +1,3 @@
 * Updated to 1.4.4 tml
+* Added pet name to player select screen (can be disabled in the config)
 * Now localizable. Read the mod description for more info

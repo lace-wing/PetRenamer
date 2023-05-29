@@ -12,5 +12,9 @@ namespace PetRenamer
 
 		[DefaultValue(true)]
 		public bool EnableChatAutofill;
+
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ShowPetNameInSelectScreen;
 	}
 }
