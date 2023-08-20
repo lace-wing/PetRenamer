@@ -1,6 +1,9 @@
 Mods: {
 	PetRenamer: {
-		Keybinds.RenamePet.DisplayName: Rename Pet
+		Keybinds: {
+			RenamePet.DisplayName: Rename Pet
+			Unbound: <unbound>
+		}
 
 		Configs: {
 			Config: {
@@ -36,6 +39,7 @@ Mods: {
 			PetItems: {
 				PetName: Pet Name: {0}
 				PetOwner: Owner: {0}
+				PetRename: PetRenamer: Press '{0}' to name your pet
 			}
 		}
 

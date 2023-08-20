@@ -17,12 +17,14 @@ namespace PetRenamer
 
 		public static LocalizedText PetNameText { get; private set; }
 		public static LocalizedText PetOwnerText { get; private set; }
+		public static LocalizedText PetRenameText { get; private set; }
 
 		public override void Load()
 		{
 			string category = $"Items.PetItems.";
 			PetNameText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}PetName"));
 			PetOwnerText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}PetOwner"));
+			PetRenameText ??= Language.GetOrRegister(Mod.GetLocalizationKey($"{category}PetRename"));
 		}
 
 		public string petName;
@@ -46,14 +48,34 @@ namespace PetRenamer
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
+			Color color = Color.Lerp(Color.White, Color.Orange, 0.4f);
 			if (petName.Length > 0)
 			{
-				Color color = Color.Lerp(Color.White, Color.Orange, 0.4f);
 				tooltips.Add(new TooltipLine(Mod, "PetName", PetNameText.Format(petName))
 				{
 					OverrideColor = color
 				});
 				tooltips.Add(new TooltipLine(Mod, "PetOwner", PetOwnerText.Format(petOwner))
+				{
+					OverrideColor = color
+				});
+			}
+			else
+			{
+				//TODO find button bind
+				var keybind = PetRenamer.RenamePetUIHotkey;
+				var keys = keybind.GetAssignedKeys();
+				string key;
+				if (keys.Count == 0)
+				{
+					key = PetRenamer.UnboundText.ToString();
+				}
+				else
+				{
+					key = keys[0].ToString();
+				}
+
+				tooltips.Add(new TooltipLine(Mod, "PetRename", PetRenameText.Format(key))
 				{
 					OverrideColor = color
 				});

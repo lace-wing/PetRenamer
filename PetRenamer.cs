@@ -19,6 +19,7 @@ namespace PetRenamer
 		internal const int LIGHT_PET = 1;
 
 		internal static ModKeybind RenamePetUIHotkey;
+		public static LocalizedText UnboundText { get; private set; }
 
 		internal static int[] ACTPetsWithSmallVerticalHitbox;
 
@@ -70,6 +71,8 @@ namespace PetRenamer
 		public override void Load()
 		{
 			RenamePetUIHotkey = KeybindLoader.RegisterKeybind(this, "RenamePet", "P");
+			UnboundText = Language.GetOrRegister(this.GetLocalizationKey("Keybinds.Unbound")); //TODO until tml adds this themselves
+
 			if (!Main.dedServ)
 			{
 				randomNames = GetArrayFromJson("names");
