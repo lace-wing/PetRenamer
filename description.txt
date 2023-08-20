@@ -9,4 +9,4 @@ For instructions on both, visit the homepage
 Localization:
 If you want to add support for different languages, you are welcome to contribute localizations here: https://github.com/direwolf420/PetRenamer
 List of localization contributors:
-* None!
+* Russian: GodHybrid
