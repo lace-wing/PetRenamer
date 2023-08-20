@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.Localization;
@@ -148,38 +149,21 @@ namespace PetRenamer.UI.RenamePetUI
 
 			nextElementY += 36;
 
-			float ratioFromCenter = 0.22f;
-
-			applyButton = new UIPanel()
-			{
-				Top = { Pixels = nextElementY },
-				Width = { Pixels = 60f },
-				Height = { Pixels = 30f },
-				HAlign = 0.5f - ratioFromCenter,
-				BackgroundColor = bgColor
-			};
-			applyButton.OnLeftClick += (evt, element) => { ApplyNameToItem(); };
-
-			UIText applyButtonText = new UIText(ApplyButtonText.ToString())
-			{
-				Top = { Pixels = -4f },
-				Left = { Pixels = -2f }
-			};
-			applyButton.Append(applyButtonText);
-			Append(applyButton);
-			panels.Add(applyButton);
-
+			var font = FontAssets.MouseText.Value;
+			string rawText = RandomButtonText.ToString();
+			Vector2 textSize = font.MeasureString(rawText);
+			float panelToTextPadding = 2 * 9;
 			randomizeButton = new UIPanel()
 			{
 				Top = { Pixels = nextElementY },
-				Width = { Pixels = 82f },
+				Width = { Pixels = textSize.X + panelToTextPadding },
 				Height = { Pixels = 30f },
 				HAlign = 0.5f,
 				BackgroundColor = bgColor
 			};
 			randomizeButton.OnLeftClick += (evt, element) => { RandomizeText(); };
 
-			UIText randomizeButtonText = new UIText(RandomButtonText.ToString())
+			UIText randomizeButtonText = new UIText(rawText)
 			{
 				Top = { Pixels = -4f },
 				Left = { Pixels = -2f }
@@ -188,17 +172,45 @@ namespace PetRenamer.UI.RenamePetUI
 			Append(randomizeButton);
 			panels.Add(randomizeButton);
 
+			float minPadBetweenButtons = 30;
+			float spaceOccupiedByMiddleButtonOnSide = randomizeButton.Width.Pixels / 2 + minPadBetweenButtons;
+
+			rawText = ApplyButtonText.ToString();
+			float spaceOccupied = font.MeasureString(rawText).X + panelToTextPadding;
+			float left = Width.Pixels / 2 - spaceOccupiedByMiddleButtonOnSide - spaceOccupied;
+			applyButton = new UIPanel()
+			{
+				Top = { Pixels = nextElementY },
+				Left = { Pixels = left },
+				Width = { Pixels = spaceOccupied },
+				Height = { Pixels = 30f },
+				BackgroundColor = bgColor
+			};
+			applyButton.OnLeftClick += (evt, element) => { ApplyNameToItem(); };
+
+			UIText applyButtonText = new UIText(rawText)
+			{
+				Top = { Pixels = -4f },
+				Left = { Pixels = -2f }
+			};
+			applyButton.Append(applyButtonText);
+			Append(applyButton);
+			panels.Add(applyButton);
+
+			rawText = ClearButtonText.ToString();
+			spaceOccupied = font.MeasureString(rawText).X + panelToTextPadding;
+			left = Width.Pixels / 2 + spaceOccupiedByMiddleButtonOnSide - 24; //Some magic number, i don't know why it needs it. works for all sizes
 			clearButton = new UIPanel()
 			{
 				Top = { Pixels = nextElementY },
-				Width = { Pixels = 60f },
+				Left = { Pixels = left },
+				Width = { Pixels = spaceOccupied },
 				Height = { Pixels = 30f },
-				HAlign = 0.5f + ratioFromCenter,
 				BackgroundColor = bgColor
 			};
 			clearButton.OnLeftClick += (evt, element) => { ClearTextField(); };
 
-			UIText clearButtonText = new UIText(ClearButtonText.ToString())
+			UIText clearButtonText = new UIText(rawText)
 			{
 				Top = { Pixels = -4f },
 				Left = { Pixels = -2f }
