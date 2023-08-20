@@ -1,72 +1,72 @@
 Mods: {
 	PetRenamer: {
 		Keybinds: {
-			// RenamePet.DisplayName: Rename Pet
-			// Unbound: <unbound>
+			RenamePet.DisplayName: Переименовать питомца
+			Unbound: <не привязано>
 		}
 
 		Configs: {
 			Config: {
-				// DisplayName: Config
+				DisplayName: Настройки
 
 				EnableChatAutofill: {
-					// Label: Enable Chat Autofill
-					// Tooltip: If chat should autofill the command automatically when a pet item is selected
+					Label: Включить автозаполнение чата
+					Tooltip: Чат будет автоматически подписывать команду переименования, если держать предмет, призывающий питомца
 				}
 
 				ShowPetNameInSelectScreen: {
-					// Label: Show Pet Name In Select Screen
-					// Tooltip: If the pet name should show up on the player select screen
+					Label: Имя питомца на экране выбора
+					Tooltip: Показывать имя питомца на экране выбора игрока
 				}
 			}
 		}
 
 		Commands: {
 			PRCommand: {
-				// Description: Set a name or rename the pet item in your mouse. {0} = {1} -> remove name
-				// NicknameReset: Nickname '{0}' reset
-				// NamedNew: Named the pet summoned by {0} '{1}'
-				// NamedSame: Pet is already called '{0}'
-				// Renamed: Renamed the pet summoned by {0} from '{1}' to '{2}'
-				// NoItem: No item to rename! Hold a pet summon item in your cursor
-				// InvalidItem: "{0} is not a valid item!"
+				Description: Установи новое имя или переименуй питомца, держа его призывающий предмет курсором. {0} = {1} -> удалить имя
+				NicknameReset: Имя '{0}' забыто
+				NamedNew: "({0}) У питомца новое имя - '{1}'!"
+				NamedSame: Питомца уже и так зовут '{0}'
+				Renamed: "({0}) У питомца новое имя: было {1}, стало {2}"
+				NoItem: Некого переименовывать! Держите курсором паспорт питомца
+				InvalidItem: "{0} - не предмет, призывающий питомца!"
 			}
 		}
 
-		// Buffs.PetBuff.Name: Name: {0}
+		Buffs.PetBuff.Name: Имя: {0}
 
 		Items: {
 			PetItems: {
-				// PetName: Pet Name: {0}
-				// PetOwner: Owner: {0}
-				// PetRename: PetRenamer: Press '{0}' to name your pet
+				PetName: Имя питомца: {0}
+				PetOwner: Хозяин/Хозяйка: {0}
+				PetRename: PetRenamer: Нажмите '{0}', чтобы дать питомцу имя
 			}
 		}
 
 		UI: {
 			RenamePetUI: {
-				// Title: Rename Pet
-				// SlotMouseover: Place a pet summoning item here
-				/* SlotMouseoverSlow:
+				Title: Переименовать питомца
+				SlotMouseover: Поместите сюда паспорт питомца
+				SlotMouseoverSlow:
 					'''
-					1. Place a pet summoning item here
-					2. Type a name into the text box
-					2. (optional) Press 'Clear' to delete the text
-					2. (optional) Press 'Random' for a random name
-					3. Press 'Apply' to set the text from the text box as the name for the pet
-					3. (optional) Take out the item
-					4. Press 'X' to close. Item will be returned to you if it's still in the UI
-					Note: If you leave the UI with the item in it open and close the game, it will appear again next time you play
-					''' */
-				// SlotMouseoverVerySlowEasterEgg: Santa isn't real
-				// Input: Enter Name Here
-				// ApplyButton: Apply
-				// RandomButton: Random
-				// ClearButton: Clear
-				// CloseButton: Close
+					1. Поместите сюда паспорт питомца
+					2. Введи имя в текстовое поле
+					2. (необязательно) Нажми 'Очистить', чтобы удалить текст
+					2. (необязательно) Нажми 'Случайное имя', чтобы создать случайное имя
+					3. Нажми 'Применить', чтобы установить текст в текстовом поле как новое имя питомца
+					3. (необязательно) Забери паспорт
+					4. Нажми 'X', чтобы закрыть окно. Паспорт будет возвращён, если он на этот момент был в закрытом окне.
+					Внимание: если закрыть игру, не закрывая при этом окно переименования - паспорт появится снова при следующем входе
+					'''
+				SlotMouseoverVerySlowEasterEgg: Свамперт - любимый покемон Деда Мороза
+				Input: Введите сюда имя
+				ApplyButton: Применить
+				RandomButton: Случайное имя
+				ClearButton: Очистить
+				CloseButton: Закрыть
 			}
 		}
 
-		// PlayerSelectScreenUI.PetNameInSelectScreen: "{0} & {1}"
+		PlayerSelectScreenUI.PetNameInSelectScreen: "{0} и {1}"
 	}
 }
