@@ -47,7 +47,7 @@ Mods: {
 			RenamePetUI: {
 				Title: Rinomina mascotte
 				SlotMouseover: Piazza un oggetto d'evocazione per mascotte qui
-				 SlotMouseoverSlow:
+				SlotMouseoverSlow:
 					'''
 					1. Piazza un oggetto d'evocazione per mascotte qui
 					2. Digita un nome nella casella di testo
@@ -56,8 +56,8 @@ Mods: {
 					3. Premi 'Applica' per impostare il testo dalla casella di testo come nome per la mascotte
 					3. (opzionale) Togli l'oggetto
 					4. Premi 'X' per chiudere. L'oggetto ti sarà restituito se ancora presente nella UI
-					Note: Se lasci aperta la UI con l'oggetto e chiudi il gioco, l'oggetto apparirà di nuovo la prossima volta che giocherai.
-					''' 
+					Nota: Se lasci aperta la UI con l'oggetto e chiudi il gioco, l'oggetto apparirà di nuovo la prossima volta che giocherai.
+					'''
 				SlotMouseoverVerySlowEasterEgg: Babbo Natale non esiste
 				Input: Inserire qui il nome
 				ApplyButton: Applica

@@ -10,3 +10,4 @@ For instructions on both, visit the [b][url=https://forums.terraria.org/index.ph
 If you want to add support for different languages, you are welcome to contribute localizations here: [b][url=https://github.com/direwolf420/PetRenamer]GitHub[/url][/b]
 List of localization contributors:
 * Russian: [b]GodHybrid[/b]
+* Italian: [b]Sea Noodle[/b]
